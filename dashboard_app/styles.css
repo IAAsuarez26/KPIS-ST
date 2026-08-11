@@ -44,6 +44,10 @@ body.dark-theme {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Logo display per theme */
+body.dark-theme #logo-dark { display: block !important; }
+body.dark-theme #logo-light { display: none !important; }
+
 /* 2. LIGHT THEME TOKENS (Modo Clásico) */
 body.light-theme {
     --bg-base: #F8FAFC;
@@ -65,6 +69,9 @@ body.light-theme {
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+body.light-theme #logo-dark { display: none !important; }
+body.light-theme #logo-light { display: block !important; mix-blend-mode: multiply; }
 
 * {
     box-sizing: border-box;
@@ -108,48 +115,34 @@ body.light-theme {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Brand Header with Company Logo */
 .brand-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 24px 20px;
+    padding: 20px 20px 16px 20px;
     border-bottom: 1px solid var(--glass-border);
     transition: all 0.3s ease;
 }
 
-.brand-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+.brand-logo-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFF;
-    flex-shrink: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
 }
 
-.brand-text h2 {
+.company-logo {
+    max-height: 48px;
+    max-width: 190px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.brand-subtitle {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    line-height: 1.2;
-    white-space: nowrap;
-}
-
-.brand-badge {
-    font-size: 0.65rem;
-    background: var(--accent-blue);
-    color: #FFF;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 6px;
-    vertical-align: middle;
-}
-
-.brand-text p {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--accent-blue);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
     white-space: nowrap;
 }
 
@@ -253,7 +246,7 @@ body.light-theme {
     width: var(--sidebar-collapsed-width);
 }
 
-.app-layout.sidebar-collapsed .brand-text,
+.app-layout.sidebar-collapsed .brand-subtitle,
 .app-layout.sidebar-collapsed .nav-section-title,
 .app-layout.sidebar-collapsed .nav-btn span,
 .app-layout.sidebar-collapsed .status-text {
@@ -262,7 +255,12 @@ body.light-theme {
 
 .app-layout.sidebar-collapsed .brand-header {
     justify-content: center;
-    padding: 20px 10px;
+    padding: 16px 8px;
+}
+
+.app-layout.sidebar-collapsed .company-logo {
+    max-height: 28px;
+    max-width: 50px;
 }
 
 .app-layout.sidebar-collapsed .nav-btn {
