@@ -1,96 +1,116 @@
 /* ===============================================================================
-   ANTIGRAVITY BI SUITE - DW_PB ENTERPRISE DATASET (INCLUDES PRODUCT RELEASE DATA)
+   ANTIGRAVITY BI SUITE - DW_PB ENTERPRISE DATASET (12 YEARS: 2015 - 2026)
    =============================================================================== */
 
 const DW_DATA = {
     exchangeRate: 36.50, // Tasa Oficial VEF por USD
 
-    // Summaries per Period
+    // Summaries per Period (2015 - 2026)
     summary: {
         all: {
-            totalSalesUSD: 14850420,
-            grossMarginUSD: 5167946,
-            marginPct: 34.8,
-            totalPurchasesUSD: 2535175,
-            fillRatePct: 96.4,
-            oeePct: 82.4,
-            scrapPct: 2.1,
-            totalInventoryUSD: 3842500,
-            dohDays: 42.5,
-            cogsUSD: 9682474,
-            opexUSD: 2840100,
-            netProfitUSD: 2327846,
-            facturadoUSD: 15420100,
-            devolucionesUSD: 569680,
-            ticketUSD: 21.48,
-
-            // Product Release & Sales Availability Metrics
-            onTimeReleasePct: 97.4,
-            releasedStockUSD: 3520000,
-            onHoldStockUSD: 322500,
-            holdDays: 2.8
-        },
-        '2025': {
-            totalSalesUSD: 12220000,
-            grossMarginUSD: 4245600,
-            marginPct: 34.7,
-            totalPurchasesUSD: 2085000,
-            fillRatePct: 95.8,
-            oeePct: 81.2,
-            scrapPct: 2.3,
-            totalInventoryUSD: 3450000,
-            dohDays: 45.0,
-            cogsUSD: 7974400,
-            opexUSD: 2350000,
-            netProfitUSD: 1895600,
-            facturadoUSD: 12680000,
-            devolucionesUSD: 460000,
-            ticketUSD: 20.80,
-
-            onTimeReleasePct: 96.2,
-            releasedStockUSD: 3150000,
-            onHoldStockUSD: 300000,
-            holdDays: 3.2
+            totalSalesUSD: 14850420, grossMarginUSD: 5167946, marginPct: 34.8, totalPurchasesUSD: 2535175,
+            fillRatePct: 96.4, oeePct: 82.4, scrapPct: 2.1, totalInventoryUSD: 3842500, dohDays: 42.5,
+            cogsUSD: 9682474, opexUSD: 2840100, netProfitUSD: 2327846, facturadoUSD: 15420100, devolucionesUSD: 569680, ticketUSD: 21.48,
+            onTimeReleasePct: 97.4, releasedStockUSD: 3520000, onHoldStockUSD: 322500, holdDays: 2.8
         },
         '2026': {
-            totalSalesUSD: 2630000,
-            grossMarginUSD: 922346,
-            marginPct: 35.1,
-            totalPurchasesUSD: 450175,
-            fillRatePct: 98.2,
-            oeePct: 84.5,
-            scrapPct: 1.8,
-            totalInventoryUSD: 3842500,
-            dohDays: 38.5,
-            cogsUSD: 1707646,
-            opexUSD: 490100,
-            netProfitUSD: 432246,
-            facturadoUSD: 2740100,
-            devolucionesUSD: 109680,
-            ticketUSD: 23.50,
-
-            onTimeReleasePct: 98.6,
-            releasedStockUSD: 3520000,
-            onHoldStockUSD: 322500,
-            holdDays: 2.1
+            totalSalesUSD: 2630000, grossMarginUSD: 922346, marginPct: 35.1, totalPurchasesUSD: 450175,
+            fillRatePct: 98.2, oeePct: 84.5, scrapPct: 1.8, totalInventoryUSD: 3842500, dohDays: 38.5,
+            cogsUSD: 1707646, opexUSD: 490100, netProfitUSD: 432246, facturadoUSD: 2740100, devolucionesUSD: 109680, ticketUSD: 23.50,
+            onTimeReleasePct: 98.6, releasedStockUSD: 3520000, onHoldStockUSD: 322500, holdDays: 2.1
+        },
+        '2025': {
+            totalSalesUSD: 12220000, grossMarginUSD: 4245600, marginPct: 34.7, totalPurchasesUSD: 2085000,
+            fillRatePct: 95.8, oeePct: 81.2, scrapPct: 2.3, totalInventoryUSD: 3450000, dohDays: 45.0,
+            cogsUSD: 7974400, opexUSD: 2350000, netProfitUSD: 1895600, facturadoUSD: 12680000, devolucionesUSD: 460000, ticketUSD: 20.80,
+            onTimeReleasePct: 96.2, releasedStockUSD: 3150000, onHoldStockUSD: 300000, holdDays: 3.2
+        },
+        '2024': {
+            totalSalesUSD: 11450000, grossMarginUSD: 3950000, marginPct: 34.5, totalPurchasesUSD: 1980000,
+            fillRatePct: 95.2, oeePct: 80.5, scrapPct: 2.4, totalInventoryUSD: 3200000, dohDays: 46.0,
+            cogsUSD: 7500000, opexUSD: 2200000, netProfitUSD: 1750000, facturadoUSD: 11880000, devolucionesUSD: 430000, ticketUSD: 20.10,
+            onTimeReleasePct: 95.8, releasedStockUSD: 2900000, onHoldStockUSD: 300000, holdDays: 3.4
+        },
+        '2023': {
+            totalSalesUSD: 10800000, grossMarginUSD: 3672000, marginPct: 34.0, totalPurchasesUSD: 1850000,
+            fillRatePct: 94.5, oeePct: 79.8, scrapPct: 2.6, totalInventoryUSD: 3050000, dohDays: 48.0,
+            cogsUSD: 7128000, opexUSD: 2100000, netProfitUSD: 1572000, facturadoUSD: 11200000, devolucionesUSD: 400000, ticketUSD: 19.50,
+            onTimeReleasePct: 95.0, releasedStockUSD: 2750000, onHoldStockUSD: 300000, holdDays: 3.6
+        },
+        '2022': {
+            totalSalesUSD: 13100000, grossMarginUSD: 4585000, marginPct: 35.0, totalPurchasesUSD: 2200000,
+            fillRatePct: 96.0, oeePct: 82.0, scrapPct: 2.2, totalInventoryUSD: 3600000, dohDays: 44.0,
+            cogsUSD: 8515000, opexUSD: 2450000, netProfitUSD: 2135000, facturadoUSD: 13580000, devolucionesUSD: 480000, ticketUSD: 21.20,
+            onTimeReleasePct: 96.5, releasedStockUSD: 3300000, onHoldStockUSD: 300000, holdDays: 3.0
+        },
+        '2021': {
+            totalSalesUSD: 15200000, grossMarginUSD: 5396000, marginPct: 35.5, totalPurchasesUSD: 2550000,
+            fillRatePct: 96.8, oeePct: 83.2, scrapPct: 2.0, totalInventoryUSD: 3950000, dohDays: 41.0,
+            cogsUSD: 9804000, opexUSD: 2750000, netProfitUSD: 2646000, facturadoUSD: 15750000, devolucionesUSD: 550000, ticketUSD: 22.10,
+            onTimeReleasePct: 97.2, releasedStockUSD: 3650000, onHoldStockUSD: 300000, holdDays: 2.6
+        },
+        '2020': {
+            totalSalesUSD: 14100000, grossMarginUSD: 4864500, marginPct: 34.5, totalPurchasesUSD: 2380000,
+            fillRatePct: 94.0, oeePct: 78.5, scrapPct: 2.8, totalInventoryUSD: 3700000, dohDays: 47.0,
+            cogsUSD: 9235500, opexUSD: 2600000, netProfitUSD: 2264500, facturadoUSD: 14650000, devolucionesUSD: 550000, ticketUSD: 20.40,
+            onTimeReleasePct: 94.2, releasedStockUSD: 3350000, onHoldStockUSD: 350000, holdDays: 4.1
+        },
+        '2019': {
+            totalSalesUSD: 9200000, grossMarginUSD: 3128000, marginPct: 34.0, totalPurchasesUSD: 1600000,
+            fillRatePct: 93.5, oeePct: 77.0, scrapPct: 3.0, totalInventoryUSD: 2800000, dohDays: 52.0,
+            cogsUSD: 6072000, opexUSD: 1850000, netProfitUSD: 1278000, facturadoUSD: 9550000, devolucionesUSD: 350000, ticketUSD: 18.90,
+            onTimeReleasePct: 93.8, releasedStockUSD: 2500000, onHoldStockUSD: 300000, holdDays: 4.5
+        },
+        '2018': {
+            totalSalesUSD: 12800000, grossMarginUSD: 4416000, marginPct: 34.5, totalPurchasesUSD: 2150000,
+            fillRatePct: 95.0, oeePct: 80.0, scrapPct: 2.5, totalInventoryUSD: 3500000, dohDays: 45.0,
+            cogsUSD: 8384000, opexUSD: 2400000, netProfitUSD: 2016000, facturadoUSD: 13250000, devolucionesUSD: 450000, ticketUSD: 20.50,
+            onTimeReleasePct: 95.5, releasedStockUSD: 3200000, onHoldStockUSD: 300000, holdDays: 3.5
+        },
+        '2017': {
+            totalSalesUSD: 18500000, grossMarginUSD: 6660000, marginPct: 36.0, totalPurchasesUSD: 3100000,
+            fillRatePct: 97.5, oeePct: 85.0, scrapPct: 1.7, totalInventoryUSD: 4500000, dohDays: 36.0,
+            cogsUSD: 11840000, opexUSD: 3200000, netProfitUSD: 3460000, facturadoUSD: 19150000, devolucionesUSD: 650000, ticketUSD: 24.20,
+            onTimeReleasePct: 98.0, releasedStockUSD: 4200000, onHoldStockUSD: 300000, holdDays: 2.0
+        },
+        '2016': {
+            totalSalesUSD: 11200000, grossMarginUSD: 3808000, marginPct: 34.0, totalPurchasesUSD: 1900000,
+            fillRatePct: 94.8, oeePct: 79.0, scrapPct: 2.7, totalInventoryUSD: 3100000, dohDays: 48.0,
+            cogsUSD: 7392000, opexUSD: 2150000, netProfitUSD: 1658000, facturadoUSD: 11600000, devolucionesUSD: 400000, ticketUSD: 19.80,
+            onTimeReleasePct: 94.5, releasedStockUSD: 2800000, onHoldStockUSD: 300000, holdDays: 3.8
+        },
+        '2015': {
+            totalSalesUSD: 4500000, grossMarginUSD: 1530000, marginPct: 34.0, totalPurchasesUSD: 850000,
+            fillRatePct: 93.0, oeePct: 76.5, scrapPct: 3.1, totalInventoryUSD: 1900000, dohDays: 55.0,
+            cogsUSD: 2970000, opexUSD: 950000, netProfitUSD: 580000, facturadoUSD: 4680000, devolucionesUSD: 180000, ticketUSD: 18.20,
+            onTimeReleasePct: 93.0, releasedStockUSD: 1700000, onHoldStockUSD: 200000, holdDays: 4.8
         }
     },
 
     monthlySalesTrend: [
-        { year: 2025, month: 'Ene 2025', salesUSD: 1050000, marginUSD: 362250, marginPct: 34.5 },
-        { year: 2025, month: 'Feb 2025', salesUSD: 1120000, marginUSD: 392000, marginPct: 35.0 },
-        { year: 2025, month: 'Mar 2025', salesUSD: 1180000, marginUSD: 401200, marginPct: 34.0 },
-        { year: 2025, month: 'Abr 2025', salesUSD: 1090000, marginUSD: 376050, marginPct: 34.5 },
-        { year: 2025, month: 'May 2025', salesUSD: 1250000, marginUSD: 443750, marginPct: 35.5 },
-        { year: 2025, month: 'Jun 2025', salesUSD: 1310000, marginUSD: 465050, marginPct: 35.5 },
-        { year: 2025, month: 'Jul 2025', salesUSD: 1280000, marginUSD: 441600, marginPct: 34.5 },
-        { year: 2025, month: 'Ago 2025', salesUSD: 1350000, marginUSD: 479250, marginPct: 35.5 },
-        { year: 2025, month: 'Sep 2025', salesUSD: 1220000, marginUSD: 420900, marginPct: 34.5 },
-        { year: 2025, month: 'Oct 2025', salesUSD: 1400000, marginUSD: 490000, marginPct: 35.0 },
-        { year: 2025, month: 'Nov 2025', salesUSD: 1450000, marginUSD: 514750, marginPct: 35.5 },
-        { year: 2025, month: 'Dic 2025', salesUSD: 1620000, marginUSD: 575100, marginPct: 35.5 },
-        { year: 2026, month: 'Ene 2026', salesUSD: 1280000, marginUSD: 441600, marginPct: 34.5 },
-        { year: 2026, month: 'Feb 2026', salesUSD: 1350000, marginUSD: 479250, marginPct: 35.5 }
+        { year: 2015, month: 'Ene 2015', salesUSD: 350000, marginUSD: 119000 },
+        { year: 2015, month: 'Jun 2015', salesUSD: 380000, marginUSD: 129200 },
+        { year: 2015, month: 'Dic 2015', salesUSD: 420000, marginUSD: 142800 },
+        { year: 2017, month: 'Ene 2017', salesUSD: 1450000, marginUSD: 522000 },
+        { year: 2017, month: 'Jun 2017', salesUSD: 1580000, marginUSD: 568800 },
+        { year: 2017, month: 'Dic 2017', salesUSD: 1720000, marginUSD: 619200 },
+        { year: 2021, month: 'Ene 2021', salesUSD: 1210000, marginUSD: 429550 },
+        { year: 2021, month: 'Jun 2021', salesUSD: 1320000, marginUSD: 468600 },
+        { year: 2021, month: 'Dic 2021', salesUSD: 1480000, marginUSD: 525400 },
+        { year: 2025, month: 'Ene 2025', salesUSD: 1050000, marginUSD: 362250 },
+        { year: 2025, month: 'Feb 2025', salesUSD: 1120000, marginUSD: 392000 },
+        { year: 2025, month: 'Mar 2025', salesUSD: 1180000, marginUSD: 401200 },
+        { year: 2025, month: 'Abr 2025', salesUSD: 1090000, marginUSD: 376050 },
+        { year: 2025, month: 'May 2025', salesUSD: 1250000, marginUSD: 443750 },
+        { year: 2025, month: 'Jun 2025', salesUSD: 1310000, marginUSD: 465050 },
+        { year: 2025, month: 'Jul 2025', salesUSD: 1280000, marginUSD: 441600 },
+        { year: 2025, month: 'Ago 2025', salesUSD: 1350000, marginUSD: 479250 },
+        { year: 2025, month: 'Sep 2025', salesUSD: 1220000, marginUSD: 420900 },
+        { year: 2025, month: 'Oct 2025', salesUSD: 1400000, marginUSD: 490000 },
+        { year: 2025, month: 'Nov 2025', salesUSD: 1450000, marginUSD: 514750 },
+        { year: 2025, month: 'Dic 2025', salesUSD: 1620000, marginUSD: 575100 },
+        { year: 2026, month: 'Ene 2026', salesUSD: 1280000, marginUSD: 441600 },
+        { year: 2026, month: 'Feb 2026', salesUSD: 1350000, marginUSD: 479250 }
     ],
 
     purchasesByCategory: {
@@ -100,20 +120,6 @@ const DW_DATA = {
             { category: 'Insumos Químicos', amountUSD: 215474 },
             { category: 'Repuestos e Industriales', amountUSD: 142033 },
             { category: 'Materiales Locales', amountUSD: 55541 }
-        ],
-        '2025': [
-            { category: 'Materia Prima Importada', amountUSD: 1350000 },
-            { category: 'Envases y Empaques', amountUSD: 390000 },
-            { category: 'Insumos Químicos', amountUSD: 175000 },
-            { category: 'Repuestos e Industriales', amountUSD: 120000 },
-            { category: 'Materiales Locales', amountUSD: 50000 }
-        ],
-        '2026': [
-            { category: 'Materia Prima Importada', amountUSD: 299626 },
-            { category: 'Envases y Empaques', amountUSD: 82000 },
-            { category: 'Insumos Químicos', amountUSD: 40474 },
-            { category: 'Repuestos e Industriales', amountUSD: 22033 },
-            { category: 'Materiales Locales', amountUSD: 5541 }
         ]
     },
 
@@ -126,24 +132,6 @@ const DW_DATA = {
             { product: 'Bebida Energizante', volume: 32000, marginPct: 45.0, revenueUSD: 480000 },
             { product: 'Soda Lima Limón 355ml', volume: 110000, marginPct: 36.0, revenueUSD: 520000 },
             { product: 'Malta Especial 250ml', volume: 88000, marginPct: 28.5, revenueUSD: 310000 }
-        ],
-        '2025': [
-            { product: 'Bebida Carbonatada 2L', volume: 128000, marginPct: 41.8, revenueUSD: 1020000 },
-            { product: 'Agua Mineral 500ml', volume: 185000, marginPct: 37.5, revenueUSD: 810000 },
-            { product: 'Jugo Natural 1L', volume: 78000, marginPct: 31.0, revenueUSD: 520000 },
-            { product: 'Te Frío Durazno 1.5L', volume: 38000, marginPct: 21.5, revenueUSD: 175000 },
-            { product: 'Bebida Energizante', volume: 25000, marginPct: 44.0, revenueUSD: 375000 },
-            { product: 'Soda Lima Limón 355ml', volume: 92000, marginPct: 35.5, revenueUSD: 430000 },
-            { product: 'Malta Especial 250ml', volume: 72000, marginPct: 28.0, revenueUSD: 250000 }
-        ],
-        '2026': [
-            { product: 'Bebida Carbonatada 2L', volume: 26000, marginPct: 44.0, revenueUSD: 230000 },
-            { product: 'Agua Mineral 500ml', volume: 35000, marginPct: 39.5, revenueUSD: 170000 },
-            { product: 'Jugo Natural 1L', volume: 17000, marginPct: 33.0, revenueUSD: 120000 },
-            { product: 'Te Frío Durazno 1.5L', volume: 7000, marginPct: 24.0, revenueUSD: 35000 },
-            { product: 'Bebida Energizante', volume: 7000, marginPct: 48.0, revenueUSD: 105000 },
-            { product: 'Soda Lima Limón 355ml', volume: 18000, marginPct: 37.5, revenueUSD: 90000 },
-            { product: 'Malta Especial 250ml', volume: 16000, marginPct: 30.0, revenueUSD: 60000 }
         ]
     },
 
@@ -156,24 +144,6 @@ const DW_DATA = {
             { name: 'COMERCIALIZADORA MAKRO', salesUSD: 980000, cumPct: 60.9 },
             { name: 'CENTRO COMERCIAL BIDEAUX', salesUSD: 720000, cumPct: 65.7 },
             { name: 'Otros 1,137 Clientes', salesUSD: 5090020, cumPct: 100.0 }
-        ],
-        '2025': [
-            { name: 'SUPERMERCADOS PLAZA, C.A.', salesUSD: 2350000, cumPct: 19.2 },
-            { name: 'DISTRIBUIDORA POLAR DE VZLA', salesUSD: 1750000, cumPct: 33.5 },
-            { name: 'EXCELSIOR GAMA SUPERMERCADOS', salesUSD: 1520000, cumPct: 45.9 },
-            { name: 'FARMACIA SAAS UNICENTER', salesUSD: 1030000, cumPct: 54.3 },
-            { name: 'COMERCIALIZADORA MAKRO', salesUSD: 810000, cumPct: 60.9 },
-            { name: 'CENTRO COMERCIAL BIDEAUX', salesUSD: 590000, cumPct: 65.7 },
-            { name: 'Otros 1,137 Clientes', salesUSD: 4170000, cumPct: 100.0 }
-        ],
-        '2026': [
-            { name: 'SUPERMERCADOS PLAZA, C.A.', salesUSD: 500400, cumPct: 19.0 },
-            { name: 'DISTRIBUIDORA POLAR DE VZLA', salesUSD: 370000, cumPct: 33.1 },
-            { name: 'EXCELSIOR GAMA SUPERMERCADOS', salesUSD: 320000, cumPct: 45.2 },
-            { name: 'FARMACIA SAAS UNICENTER', salesUSD: 220000, cumPct: 53.6 },
-            { name: 'COMERCIALIZADORA MAKRO', salesUSD: 170000, cumPct: 60.1 },
-            { name: 'CENTRO COMERCIAL BIDEAUX', salesUSD: 130000, cumPct: 65.0 },
-            { name: 'Otros 1,137 Clientes', salesUSD: 919600, cumPct: 100.0 }
         ]
     },
 
@@ -184,20 +154,6 @@ const DW_DATA = {
             { category: 'ENERGIZANTES Y TES', units: 142000, grossUSD: 2450000, returnsUSD: 95000, netUSD: 2355000, marginUSD: 918450, marginPct: 39.0 },
             { category: 'LICORES Y MALTAS', units: 118000, grossUSD: 2120000, returnsUSD: 110000, netUSD: 2010000, marginUSD: 502500, marginPct: 25.0 },
             { category: 'OTROS INSUMOS', units: 85400, grossUSD: 1540100, returnsUSD: 64680, netUSD: 1475420, marginUSD: 203696, marginPct: 13.8 }
-        ],
-        '2025': [
-            { category: 'BEBIDAS CARBONATADAS', units: 398000, grossUSD: 4450000, returnsUSD: 145000, netUSD: 4305000, marginUSD: 1756440, marginPct: 40.8 },
-            { category: 'AGUAS Y JUGOS', units: 324000, grossUSD: 3190000, returnsUSD: 98000, netUSD: 3092000, marginUSD: 1137856, marginPct: 36.8 },
-            { category: 'ENERGIZANTES Y TES', units: 116000, grossUSD: 2010000, returnsUSD: 78000, netUSD: 1932000, marginUSD: 749616, marginPct: 38.8 },
-            { category: 'LICORES Y MALTAS', units: 96000, grossUSD: 1740000, returnsUSD: 90000, netUSD: 1650000, marginUSD: 409200, marginPct: 24.8 },
-            { category: 'OTROS INSUMOS', units: 70000, grossUSD: 1290000, returnsUSD: 49000, netUSD: 1241000, marginUSD: 167535, marginPct: 13.5 }
-        ],
-        '2026': [
-            { category: 'BEBIDAS CARBONATADAS', units: 87200, grossUSD: 970000, returnsUSD: 35000, netUSD: 935000, marginUSD: 391960, marginPct: 41.9 },
-            { category: 'AGUAS Y JUGOS', units: 71100, grossUSD: 700000, returnsUSD: 22000, netUSD: 678000, marginUSD: 257044, marginPct: 37.9 },
-            { category: 'ENERGIZANTES Y TES', units: 26000, grossUSD: 440000, returnsUSD: 17000, netUSD: 423000, marginUSD: 168834, marginPct: 39.9 },
-            { category: 'LICORES Y MALTAS', units: 22000, grossUSD: 380000, returnsUSD: 20000, netUSD: 360000, marginUSD: 93300, marginPct: 25.9 },
-            { category: 'OTROS INSUMOS', units: 15400, grossUSD: 250100, returnsUSD: 15680, netUSD: 234420, marginUSD: 36161, marginPct: 15.4 }
         ]
     },
 
@@ -216,29 +172,10 @@ const DW_DATA = {
             { label: 'Utilidad Bruta', amountUSD: 5167946, isTotal: true, isNegative: false },
             { label: 'Gastos OPEX', amountUSD: -2840100, isTotal: false, isNegative: true },
             { label: 'Utilidad Neta P&L', amountUSD: 2327846, isTotal: true, isNegative: false }
-        ],
-        '2025': [
-            { label: 'Ingresos Netos', amountUSD: 12220000, isTotal: false, isNegative: false },
-            { label: 'Costo Ventas (COGS)', amountUSD: -7974400, isTotal: false, isNegative: true },
-            { label: 'Utilidad Bruta', amountUSD: 4245600, isTotal: true, isNegative: false },
-            { label: 'Gastos OPEX', amountUSD: -2350000, isTotal: false, isNegative: true },
-            { label: 'Utilidad Neta P&L', amountUSD: 1895600, isTotal: true, isNegative: false }
-        ],
-        '2026': [
-            { label: 'Ingresos Netos', amountUSD: 2630000, isTotal: false, isNegative: false },
-            { label: 'Costo Ventas (COGS)', amountUSD: -1707646, isTotal: false, isNegative: true },
-            { label: 'Utilidad Bruta', amountUSD: 922346, isTotal: true, isNegative: false },
-            { label: 'Gastos OPEX', amountUSD: -490100, isTotal: false, isNegative: true },
-            { label: 'Utilidad Neta P&L', amountUSD: 432246, isTotal: true, isNegative: false }
         ]
     },
 
-    cashCycle: {
-        dso: 38.5,
-        dio: 42.5,
-        dpo: 45.0,
-        ccc: 36.0
-    },
+    cashCycle: { dso: 38.5, dio: 42.5, dpo: 45.0, ccc: 36.0 },
 
     oeeBreakdown: [
         { plant: 'Planta Principal Valencia', availability: 92.5, performance: 91.0, quality: 98.2, oee: 82.6 },
