@@ -33,6 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return val.toFixed(1) + '%';
     }
 
+    // DOM Elements Declaration
+    const tabButtons = document.querySelectorAll('.nav-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const tabTitle = document.getElementById('tab-title');
+    const tabSubtitle = document.getElementById('tab-subtitle');
+    const btnSidebarToggle = document.getElementById('btn-sidebar-toggle');
+    const appLayout = document.getElementById('app-layout');
+    const sidebarToggleIcon = document.getElementById('sidebar-toggle-icon');
+    const btnThemeToggle = document.getElementById('btn-theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const btnRefresh = document.getElementById('btn-refresh');
+    const btnUSD = document.getElementById('btn-usd');
+    const btnVEF = document.getElementById('btn-vef');
+    const filterPeriodSelect = document.getElementById('filter-period');
+    const searchVentasInput = document.getElementById('search-ventas');
+
     // Navigation Handler
     tabButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -98,19 +114,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Currency Switcher Handler
-    btnUSD.addEventListener('click', () => setCurrency('USD'));
-    btnVEF.addEventListener('click', () => setCurrency('VEF'));
+    if (btnUSD) btnUSD.addEventListener('click', () => setCurrency('USD'));
+    if (btnVEF) btnVEF.addEventListener('click', () => setCurrency('VEF'));
 
     function setCurrency(currency) {
         if (currentCurrency === currency) return;
         currentCurrency = currency;
 
         if (currency === 'USD') {
-            btnUSD.classList.add('active');
-            btnVEF.classList.remove('active');
+            if (btnUSD) btnUSD.classList.add('active');
+            if (btnVEF) btnVEF.classList.remove('active');
         } else {
-            btnVEF.classList.add('active');
-            btnUSD.classList.remove('active');
+            if (btnVEF) btnVEF.classList.add('active');
+            if (btnUSD) btnUSD.classList.remove('active');
         }
 
         updateAllValues();
@@ -127,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnRefresh) {
         btnRefresh.addEventListener('click', () => {
             updateAllValues();
+            updateDWCCRDashboard();
             renderChartsForTab(currentTab, true);
         });
     }
@@ -139,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update Formatted Text Values
     function updateAllValues() {
+        if (typeof DW_DATA === 'undefined' || !DW_DATA || !DW_DATA.summary) return;
         const s = DW_DATA.summary[currentPeriod] || DW_DATA.summary.all;
         
         // Overview KPIs
