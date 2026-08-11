@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // State Management
     let currentCurrency = 'USD';
     let currentPeriod = 'all'; // 'all', '2025', '2026'
+    let currentTheme = 'dark'; // 'dark', 'light'
     let currentTab = 'overview';
     const chartInstances = {};
 
@@ -18,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnVEF = document.getElementById('btn-vef');
     const filterPeriodSelect = document.getElementById('filter-period');
     const btnRefresh = document.getElementById('btn-refresh');
+    const btnThemeToggle = document.getElementById('btn-theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
     const searchVentasInput = document.getElementById('search-table-ventas');
 
     // Tab Subtitles Map
@@ -67,6 +70,28 @@ document.addEventListener('DOMContentLoaded', () => {
             renderChartsForTab(currentTab);
         });
     });
+
+    // Theme Switcher Handler (Oscuro / Claro)
+    if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+            if (currentTheme === 'dark') {
+                currentTheme = 'light';
+                document.body.classList.remove('dark-theme');
+                document.body.classList.add('light-theme');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                currentTheme = 'dark';
+                document.body.classList.remove('light-theme');
+                document.body.classList.add('dark-theme');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            if (window.lucide) window.lucide.createIcons();
+            
+            // Re-render charts with theme adapted colors
+            Chart.defaults.color = currentTheme === 'dark' ? '#9CA3AF' : '#475569';
+            renderChartsForTab(currentTab, true);
+        });
+    }
 
     // Currency Switcher Handler
     btnUSD.addEventListener('click', () => setCurrency('USD'));
