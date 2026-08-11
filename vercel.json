@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "datawarehouse-bi-dashboard",
+  "name": "kpis-st-dashboard",
   "cleanUrls": true,
   "routes": [
     {

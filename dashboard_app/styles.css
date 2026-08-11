@@ -135,19 +135,31 @@ body.light-theme #logo-light { display: block !important; mix-blend-mode: multip
     width: 100%;
 }
 
-.company-logo {
-    height: 72px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    margin: 0 auto;
-    transition: all 0.3s ease;
+.brand-title-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-icon-main {
+    width: 28px;
+    height: 28px;
+    color: var(--accent-blue);
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+.brand-main-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
 }
 
 .brand-subtitle {
     font-family: var(--font-heading);
-    font-size: 0.88rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--accent-blue);
     letter-spacing: 0.5px;
     white-space: nowrap;

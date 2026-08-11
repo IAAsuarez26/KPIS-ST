@@ -8,34 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPeriod = 'all'; // 'all', '2015' .. '2026'
     let currentTheme = 'dark'; // 'dark', 'light'
     let isSidebarCollapsed = false;
-    let currentTab = 'overview';
+    let currentTab = 'ccr-soporte';
     const chartInstances = {};
-
-    // DOM Elements
-    const appLayout = document.getElementById('app-layout');
-    const tabButtons = document.querySelectorAll('.nav-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const tabTitle = document.getElementById('tab-title');
-    const tabSubtitle = document.getElementById('tab-subtitle');
-    const btnUSD = document.getElementById('btn-usd');
-    const btnVEF = document.getElementById('btn-vef');
-    const filterPeriodSelect = document.getElementById('filter-period');
-    const btnRefresh = document.getElementById('btn-refresh');
-    const btnThemeToggle = document.getElementById('btn-theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const btnSidebarToggle = document.getElementById('btn-sidebar-toggle');
-    const sidebarToggleIcon = document.getElementById('sidebar-toggle-icon');
-    const searchVentasInput = document.getElementById('search-table-ventas');
 
     // Tab Subtitles Map
     const tabTitlesMap = {
-        overview: { title: 'Executive Overview', subtitle: 'Visión Consolidada 360° del Desempeño Empresarial' },
-        ventas: { title: 'Ventas y Rentabilidad', subtitle: 'Análisis Comercial, Matriz BCG y Regla de Pareto de Clientes' },
-        compras: { title: 'Compras y Proveedores', subtitle: 'Evaluación de Abastecimiento, Fill Rate % y Variación PPV' },
-        finanzas: { title: 'Finanzas y P&L', subtitle: 'Estado de Ganancias y Pérdidas, Balance General y Ciclo de Efectivo' },
-        produccion: { title: 'Producción y Liberación de Productos', subtitle: 'Eficiencia OEE, Embudo de Liberación para Ventas (ATP) y Control de Mermas' },
-        inventario: { title: 'Inventario y Stock', subtitle: 'Valorización de Stock Liberado/Retenido, Cobertura (DOH) y Clasificación ABC' },
-        sistemas: { title: 'Gobernanza TI & ETLs', subtitle: 'Monitoreo de SLAs de Carga, Auditoría de Errores y Salud de Base de Datos' }
+        'ccr-soporte': { title: 'Atención & KPIs DW_CCR', subtitle: 'Monitoreo Interactivo de Métricas, SLAs y Comparativa YoY / MoM' },
+        'ccr-agentes': { title: 'Productividad por Agente Staff', subtitle: 'Matriz de Carga de Trabajo, Tickets Atendidos y Tiempos de Respuesta' },
+        'ccr-categorias': { title: 'Demanda por Categorías & Sistema GP', subtitle: 'Clasificación de Requerimientos por Software de Negocio e Incidentes' },
+        'ccr-gobernanza': { title: 'Gobernanza TI & Auditoría ETL', subtitle: 'Control de Ejecución de Tuberías de Datos y Registro de Cargas' }
     };
 
     // Helper: Currency Formatter
