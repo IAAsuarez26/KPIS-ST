@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // State Management
     let currentCurrency = 'USD';
+    let currentPeriod = 'all'; // 'all', '2025', '2026'
     let currentTab = 'overview';
     const chartInstances = {};
 
@@ -15,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabSubtitle = document.getElementById('tab-subtitle');
     const btnUSD = document.getElementById('btn-usd');
     const btnVEF = document.getElementById('btn-vef');
+    const filterPeriodSelect = document.getElementById('filter-period');
+    const btnRefresh = document.getElementById('btn-refresh');
     const searchVentasInput = document.getElementById('search-table-ventas');
 
     // Tab Subtitles Map
@@ -61,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 tabSubtitle.textContent = tabTitlesMap[currentTab].subtitle;
             }
 
-            // Render charts for the active tab if not rendered yet
             renderChartsForTab(currentTab);
         });
     });
@@ -82,35 +84,55 @@ document.addEventListener('DOMContentLoaded', () => {
             btnUSD.classList.remove('active');
         }
 
-        // Update all formatted UI numbers
         updateAllValues();
-        // Re-render active tab charts
+        renderChartsForTab(currentTab, true);
+    }
+
+    // Period Filter Listener
+    if (filterPeriodSelect) {
+        filterPeriodSelect.addEventListener('change', (e) => {
+            setPeriod(e.target.value);
+        });
+    }
+
+    if (btnRefresh) {
+        btnRefresh.addEventListener('click', () => {
+            updateAllValues();
+            renderChartsForTab(currentTab, true);
+        });
+    }
+
+    function setPeriod(period) {
+        currentPeriod = period;
+        updateAllValues();
         renderChartsForTab(currentTab, true);
     }
 
     // Update Formatted Text Values
     function updateAllValues() {
-        const s = DW_DATA.summary;
+        const s = DW_DATA.summary[currentPeriod] || DW_DATA.summary.all;
         
         // Overview KPIs
         document.getElementById('ov-ventas').textContent = formatMoney(s.totalSalesUSD);
+        document.getElementById('ov-margen').textContent = formatPct(s.marginPct);
         document.getElementById('ov-margen-val').textContent = formatMoney(s.grossMarginUSD);
         document.getElementById('ov-compras').textContent = formatMoney(s.totalPurchasesUSD);
+        document.getElementById('ov-oee').textContent = formatPct(s.oeePct);
 
         // Ventas KPIs
-        document.getElementById('v-facturado').textContent = formatMoney(15420100);
-        document.getElementById('v-devoluciones').textContent = formatMoney(569680);
+        document.getElementById('v-facturado').textContent = formatMoney(s.facturadoUSD);
+        document.getElementById('v-devoluciones').textContent = formatMoney(s.devolucionesUSD);
         document.getElementById('v-neta').textContent = formatMoney(s.totalSalesUSD);
-        document.getElementById('v-ticket').textContent = formatMoney(21.48);
+        document.getElementById('v-ticket').textContent = formatMoney(s.ticketUSD);
 
         // Compras KPIs
         document.getElementById('c-gasto').textContent = formatMoney(s.totalPurchasesUSD);
 
         // Finanzas KPIs
         document.getElementById('f-ingresos').textContent = formatMoney(s.totalSalesUSD);
-        document.getElementById('f-cogs').textContent = formatMoney(9682474);
-        document.getElementById('f-opex').textContent = formatMoney(2840100);
-        document.getElementById('f-neto').textContent = formatMoney(2327846);
+        document.getElementById('f-cogs').textContent = formatMoney(s.cogsUSD);
+        document.getElementById('f-opex').textContent = formatMoney(s.opexUSD);
+        document.getElementById('f-neto').textContent = formatMoney(s.netProfitUSD);
 
         // Inventario KPIs
         document.getElementById('i-valor').textContent = formatMoney(s.totalInventoryUSD);
@@ -126,7 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!tbody) return;
         tbody.innerHTML = '';
 
-        DW_DATA.salesCategoriesTable.forEach(row => {
+        const dataSet = DW_DATA.salesCategoriesTable[currentPeriod] || DW_DATA.salesCategoriesTable.all;
+
+        dataSet.forEach(row => {
             if (filterTerm && !row.category.toLowerCase().includes(filterTerm.toLowerCase())) return;
 
             const tr = document.createElement('tr');
@@ -200,22 +224,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Filter Trend Data by Period
+    function getFilteredTrendData() {
+        if (currentPeriod === 'all') return DW_DATA.monthlySalesTrend;
+        return DW_DATA.monthlySalesTrend.filter(d => d.year.toString() === currentPeriod);
+    }
+
     // 0. OVERVIEW CHARTS
     function initOverviewCharts(force = false) {
         if (!force && chartInstances['ov-ventas']) return;
         destroyChart('ov-ventas');
         destroyChart('ov-compras');
 
+        const trendData = getFilteredTrendData();
         const ctxVentas = document.getElementById('chart-ov-ventas-trend');
         if (ctxVentas) {
             chartInstances['ov-ventas'] = new Chart(ctxVentas, {
                 type: 'line',
                 data: {
-                    labels: DW_DATA.monthlySalesTrend.map(d => d.month),
+                    labels: trendData.map(d => d.month),
                     datasets: [
                         {
                             label: `Ventas Netas (${currentCurrency})`,
-                            data: DW_DATA.monthlySalesTrend.map(d => currentCurrency === 'USD' ? d.salesUSD : d.salesUSD * DW_DATA.exchangeRate),
+                            data: trendData.map(d => currentCurrency === 'USD' ? d.salesUSD : d.salesUSD * DW_DATA.exchangeRate),
                             borderColor: '#3B82F6',
                             backgroundColor: 'rgba(59, 130, 246, 0.1)',
                             fill: true,
@@ -223,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         {
                             label: `Margen Bruto (${currentCurrency})`,
-                            data: DW_DATA.monthlySalesTrend.map(d => currentCurrency === 'USD' ? d.marginUSD : d.marginUSD * DW_DATA.exchangeRate),
+                            data: trendData.map(d => currentCurrency === 'USD' ? d.marginUSD : d.marginUSD * DW_DATA.exchangeRate),
                             borderColor: '#10B981',
                             backgroundColor: 'transparent',
                             borderDash: [5, 5],
@@ -236,13 +267,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const ctxCompras = document.getElementById('chart-ov-compras-pie');
+        const purchasesData = DW_DATA.purchasesByCategory[currentPeriod] || DW_DATA.purchasesByCategory.all;
         if (ctxCompras) {
             chartInstances['ov-compras'] = new Chart(ctxCompras, {
                 type: 'doughnut',
                 data: {
-                    labels: DW_DATA.purchasesByCategory.map(d => d.category),
+                    labels: purchasesData.map(d => d.category),
                     datasets: [{
-                        data: DW_DATA.purchasesByCategory.map(d => currentCurrency === 'USD' ? d.amountUSD : d.amountUSD * DW_DATA.exchangeRate),
+                        data: purchasesData.map(d => currentCurrency === 'USD' ? d.amountUSD : d.amountUSD * DW_DATA.exchangeRate),
                         backgroundColor: ['#8B5CF6', '#3B82F6', '#10B981', '#F59E0B', '#EF4444']
                     }]
                 },
@@ -257,12 +289,13 @@ document.addEventListener('DOMContentLoaded', () => {
         destroyChart('v-bcg');
         destroyChart('v-pareto');
 
+        const bcgData = DW_DATA.salesBCG[currentPeriod] || DW_DATA.salesBCG.all;
         const ctxBCG = document.getElementById('chart-v-bcg');
         if (ctxBCG) {
             chartInstances['v-bcg'] = new Chart(ctxBCG, {
                 type: 'bubble',
                 data: {
-                    datasets: DW_DATA.salesBCG.map((item, idx) => ({
+                    datasets: bcgData.map((item, idx) => ({
                         label: item.product,
                         data: [{ x: item.volume, y: item.marginPct, r: Math.max(8, item.revenueUSD / 100000) }],
                         backgroundColor: ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444', '#06B6D4', '#EC4899'][idx % 7]
@@ -279,22 +312,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        const paretoData = DW_DATA.paretoCustomers[currentPeriod] || DW_DATA.paretoCustomers.all;
         const ctxPareto = document.getElementById('chart-v-pareto');
         if (ctxPareto) {
             chartInstances['v-pareto'] = new Chart(ctxPareto, {
                 type: 'bar',
                 data: {
-                    labels: DW_DATA.paretoCustomers.map(c => c.name.length > 15 ? c.name.substring(0, 15) + '...' : c.name),
+                    labels: paretoData.map(c => c.name.length > 15 ? c.name.substring(0, 15) + '...' : c.name),
                     datasets: [
                         {
                             label: `Ventas ($ ${currentCurrency})`,
-                            data: DW_DATA.paretoCustomers.map(c => currentCurrency === 'USD' ? c.salesUSD : c.salesUSD * DW_DATA.exchangeRate),
+                            data: paretoData.map(c => currentCurrency === 'USD' ? c.salesUSD : c.salesUSD * DW_DATA.exchangeRate),
                             backgroundColor: '#3B82F6',
                             yAxisID: 'y'
                         },
                         {
                             label: '% Acumulado Pareto',
-                            data: DW_DATA.paretoCustomers.map(c => c.cumPct),
+                            data: paretoData.map(c => c.cumPct),
                             borderColor: '#F59E0B',
                             type: 'line',
                             yAxisID: 'y1'
@@ -358,16 +392,17 @@ document.addEventListener('DOMContentLoaded', () => {
         destroyChart('f-waterfall');
         destroyChart('f-ccc');
 
+        const pnlData = DW_DATA.pnlWaterfall[currentPeriod] || DW_DATA.pnlWaterfall.all;
         const ctxWaterfall = document.getElementById('chart-f-pnl-waterfall');
         if (ctxWaterfall) {
             chartInstances['f-waterfall'] = new Chart(ctxWaterfall, {
                 type: 'bar',
                 data: {
-                    labels: DW_DATA.pnlWaterfall.map(w => w.label),
+                    labels: pnlData.map(w => w.label),
                     datasets: [{
                         label: `Monto (${currentCurrency})`,
-                        data: DW_DATA.pnlWaterfall.map(w => currentCurrency === 'USD' ? w.amountUSD : w.amountUSD * DW_DATA.exchangeRate),
-                        backgroundColor: DW_DATA.pnlWaterfall.map(w => w.isNegative ? '#EF4444' : '#10B981')
+                        data: pnlData.map(w => currentCurrency === 'USD' ? w.amountUSD : w.amountUSD * DW_DATA.exchangeRate),
+                        backgroundColor: pnlData.map(w => w.isNegative ? '#EF4444' : '#10B981')
                     }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
