@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "enterprise-data-warehouse-skills",
+  "description": "Skills especializadas para desarrollo, modelado, SQL tuning, ETL/ELT y calidad en Data Warehouse Empresarial.",
+  "entries": [
+    { "path": "skills/airflow-dag-patterns" },
+    { "path": "skills/dbt-transformation-patterns" },
+    { "path": "skills/data-engineering-data-pipeline" },
+    { "path": "skills/data-engineer" },
+    { "path": "skills/spark-optimization" },
+    { "path": "skills/polars" },
+    { "path": "skills/database-architect" },
+    { "path": "skills/database-design" },
+    { "path": "skills/snowflake-development" },
+    { "path": "skills/postgresql" },
+    { "path": "skills/cc-skill-clickhouse-io" },
+    { "path": "skills/sql-pro" },
+    { "path": "skills/sql-optimization-patterns" },
+    { "path": "skills/sql-sentinel" },
+    { "path": "skills/database-optimizer" },
+    { "path": "skills/postgres-best-practices" },
+    { "path": "skills/postgres-readonly-queries" },
+    { "path": "skills/postgresql-cli" },
+    { "path": "skills/database-migrations-sql-migrations" },
+    { "path": "skills/data-quality-frameworks" },
+    { "path": "skills/monte-carlo-analyze-root-cause" },
+    { "path": "skills/monte-carlo-prevent" },
+    { "path": "skills/monte-carlo-remediation" },
+    { "path": "skills/warehouse" },
+    { "path": "skills/lint-and-validate" },
+    { "path": "skills/clean-code" }
+  ]
+}

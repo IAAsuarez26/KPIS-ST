@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity BI Suite - DW_PB Executive Intelligence</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand-header">
+                <div class="brand-logo">
+                    <i data-lucide="zap" class="brand-icon"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>Antigravity<span class="brand-badge">BI</span></h2>
+                    <p>DW_PB Enterprise BI</p>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-section-title">MÓDULOS DE NEGOCIO</div>
+                
+                <button class="nav-btn active" data-tab="overview">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Executive Overview</span>
+                </button>
+                
+                <button class="nav-btn" data-tab="ventas">
+                    <i data-lucide="trending-up"></i>
+                    <span>Ventas y Rentabilidad</span>
+                </button>
+                
+                <button class="nav-btn" data-tab="compras">
+                    <i data-lucide="shopping-bag"></i>
+                    <span>Compras y Proveedores</span>
+                </button>
+                
+                <button class="nav-btn" data-tab="finanzas">
+                    <i data-lucide="dollar-sign"></i>
+                    <span>Finanzas y P&L</span>
+                </button>
+                
+                <button class="nav-btn" data-tab="produccion">
+                    <i data-lucide="factory"></i>
+                    <span>Producción y Planta</span>
+                </button>
+                
+                <button class="nav-btn" data-tab="inventario">
+                    <i data-lucide="package"></i>
+                    <span>Inventario y Stock</span>
+                </button>
+
+                <div class="nav-section-title">GOBERNANZA</div>
+                
+                <button class="nav-btn" data-tab="sistemas">
+                    <i data-lucide="server"></i>
+                    <span>Gobernanza TI & ETLs</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="db-status">
+                    <span class="status-indicator online"></span>
+                    <div class="status-text">
+                        <strong>BD DW_PB: Conectado</strong>
+                        <small>2.2M Registros Procesados</small>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Global Top Bar Header -->
+            <header class="top-bar">
+                <div class="page-title-area">
+                    <h1 id="tab-title">Executive Overview</h1>
+                    <p id="tab-subtitle" class="subtitle">Visión Consolidada 360° del Desempeño Empresarial</p>
+                </div>
+
+                <div class="header-controls">
+                    <!-- Moneda Toggle -->
+                    <div class="currency-toggle">
+                        <span class="toggle-label">Moneda:</span>
+                        <div class="toggle-buttons">
+                            <button id="btn-usd" class="toggle-btn active" data-currency="USD">$ USD</button>
+                            <button id="btn-vef" class="toggle-btn" data-currency="VEF">Bs. VEF</button>
+                        </div>
+                    </div>
+
+                    <!-- Period Filter -->
+                    <div class="filter-group">
+                        <i data-lucide="calendar" class="filter-icon"></i>
+                        <select id="filter-period" class="filter-select">
+                            <option value="2026">Año 2026</option>
+                            <option value="2025">Año 2025</option>
+                            <option value="all" selected>Histórico Total</option>
+                        </select>
+                    </div>
+
+                    <!-- Refresh Action -->
+                    <button id="btn-refresh" class="icon-btn" title="Refrescar Datos">
+                        <i data-lucide="rotate-cw"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Tab Content Containers -->
+            <div class="tab-viewport">
+                <!-- 0. OVERVIEW TAB -->
+                <section id="tab-overview" class="tab-content active">
+                    <!-- KPI Cards Grid -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Ingresos Netos Totales</span>
+                                <i data-lucide="dollar-sign" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="ov-ventas">$14,850,420</h3>
+                                <span class="kpi-badge positive"><i data-lucide="arrow-up-right"></i> +12.4% vs 2025</span>
+                            </div>
+                            <div class="kpi-footer">691,138 Transacciones Procesadas</div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Margen Bruto Promedio</span>
+                                <i data-lucide="percent" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="ov-margen">34.8%</h3>
+                                <span class="kpi-badge positive"><i data-lucide="arrow-up-right"></i> +2.1% Meta</span>
+                            </div>
+                            <div class="kpi-footer">Margen en $ USD: <strong id="ov-margen-val">$5,167,946</strong></div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-purple">
+                            <div class="kpi-header">
+                                <span>Gasto Total en Compras</span>
+                                <i data-lucide="shopping-cart" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="ov-compras">$2,535,175</h3>
+                                <span class="kpi-badge neutral"><i data-lucide="minus"></i> 7,836 Órdenes</span>
+                            </div>
+                            <div class="kpi-footer">Fill Rate Promedio: <strong>96.4%</strong></div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-orange">
+                            <div class="kpi-header">
+                                <span>Eficiencia OEE Planta</span>
+                                <i data-lucide="cpu" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="ov-oee">82.4%</h3>
+                                <span class="kpi-badge warning"><i data-lucide="alert-circle"></i> Meta: 85%</span>
+                            </div>
+                            <div class="kpi-footer">Tasa de Scrap: <strong>2.1%</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row 1 -->
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Evolución Mensual de Ventas vs Margen Bruto</h3>
+                                <div class="card-actions">
+                                    <span class="badge-tag">Histórico DW_PB</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-ov-ventas-trend"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Distribución del Gasto de Compras por Categoría</h3>
+                                <div class="card-actions">
+                                    <span class="badge-tag">Top Rubros</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-ov-compras-pie"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 1. VENTAS TAB -->
+                <section id="tab-ventas" class="tab-content">
+                    <div class="kpi-grid">
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Ventas Facturadas (SOPTYPE 3)</span>
+                                <i data-lucide="file-text" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="v-facturado">$15,420,100</h3>
+                                <span class="kpi-subtext">267,679 Líneas Facturadas</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-red">
+                            <div class="kpi-header">
+                                <span>Devoluciones (SOPTYPE 4)</span>
+                                <i data-lucide="rotate-ccw" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="v-devoluciones">$569,680</h3>
+                                <span class="kpi-subtext">3.69% Tasa Devolución</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Venta Neta Efectiva</span>
+                                <i data-lucide="check-circle-2" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="v-neta">$14,850,420</h3>
+                                <span class="kpi-subtext">Facturado - Devoluciones</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-purple">
+                            <div class="kpi-header">
+                                <span>Ticket Promedio por SKU</span>
+                                <i data-lucide="tag" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="v-ticket">$21.48</h3>
+                                <span class="kpi-subtext">691,138 SKU Rows</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Matriz BCG: Productos por Volumen vs. % Margen</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-v-bcg"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Análisis de Pareto: Top Clientes (Regla 80/20)</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-v-pareto"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="table-card glassmorphism">
+                        <div class="card-header">
+                            <h3>Detalle de Ventas por Categoría de Producto</h3>
+                            <input type="text" id="search-table-ventas" class="table-search" placeholder="Buscar producto o categoría...">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="table-ventas">
+                                <thead>
+                                    <tr>
+                                        <th>Categoría</th>
+                                        <th>Unidades Vendidas</th>
+                                        <th>Venta Bruta</th>
+                                        <th>Devoluciones</th>
+                                        <th>Venta Neta</th>
+                                        <th>Margen USD</th>
+                                        <th>% Margen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. COMPRAS TAB -->
+                <section id="tab-compras" class="tab-content">
+                    <div class="kpi-grid">
+                        <div class="kpi-card glassmorphism accent-purple">
+                            <div class="kpi-header">
+                                <span>Gasto Total Compras</span>
+                                <i data-lucide="shopping-bag" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="c-gasto">$2,535,175</h3>
+                                <span class="kpi-subtext">7,836 Órdenes de Compra</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Fill Rate Promedio</span>
+                                <i data-lucide="truck" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">96.4%</h3>
+                                <span class="kpi-badge positive">Excelente (+1.4%)</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Proveedores Activos</span>
+                                <i data-lucide="users" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">1,801</h3>
+                                <span class="kpi-subtext">Dim_Proveedor DW_PB</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-orange">
+                            <div class="kpi-header">
+                                <span>Variación de Costos (PPV)</span>
+                                <i data-lucide="trending-down" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">+$18,450</h3>
+                                <span class="kpi-subtext">Sobreprecio vs Estándar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Top 5 Proveedores por Volumen de Gasto ($ USD)</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-c-top-suppliers"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Evaluación de Proveedores: Fill Rate % vs Gasto</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-c-fill-rate"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. FINANZAS TAB -->
+                <section id="tab-finanzas" class="tab-content">
+                    <div class="kpi-grid">
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Ingresos Operativos Netos</span>
+                                <i data-lucide="dollar-sign" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="f-ingresos">$14,850,420</h3>
+                                <span class="kpi-subtext">Cuentas 4-X-X-X</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-red">
+                            <div class="kpi-header">
+                                <span>Costo de Ventas (COGS)</span>
+                                <i data-lucide="minus-circle" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="f-cogs">$9,682,474</h3>
+                                <span class="kpi-subtext">Cuentas 5-X-X-X</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-purple">
+                            <div class="kpi-header">
+                                <span>Gastos Operativos (OPEX)</span>
+                                <i data-lucide="credit-card" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="f-opex">$2,840,100</h3>
+                                <span class="kpi-subtext">Cuentas 6-X-X-X</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Utilidad Neta P&L</span>
+                                <i data-lucide="pie-chart" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="f-neto">$2,327,846</h3>
+                                <span class="kpi-badge positive">15.68% Margen Neto</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Cascada de Estado de Resultados (P&L Waterfall)</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-f-pnl-waterfall"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Ciclo de Conversión de Efectivo (CCC en Días)</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-f-ccc"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. PRODUCCION TAB -->
+                <section id="tab-produccion" class="tab-content">
+                    <div class="kpi-grid">
+                        <div class="kpi-card glassmorphism accent-orange">
+                            <div class="kpi-header">
+                                <span>OEE Global de Planta</span>
+                                <i data-lucide="activity" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">82.4%</h3>
+                                <span class="kpi-subtext">World Class: >85%</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Cumplimiento del Plan</span>
+                                <i data-lucide="target" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">94.8%</h3>
+                                <span class="kpi-subtext">Schedule Attainment</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Factor Calidad (Conformidad)</span>
+                                <i data-lucide="shield-check" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">97.9%</h3>
+                                <span class="kpi-subtext">2.1% Merma / Scrap</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-purple">
+                            <div class="kpi-header">
+                                <span>Eficiencia Mano de Obra</span>
+                                <i data-lucide="clock" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">91.2%</h3>
+                                <span class="kpi-subtext">Horas Est. vs Reales</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Desglose de Factores del OEE por Planta</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-p-oee-breakdown"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Pareto de Mermas / Scrap por Línea de Producto</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-p-scrap"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. INVENTARIO TAB -->
+                <section id="tab-inventario" class="tab-content">
+                    <div class="kpi-grid">
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Valor Total del Inventario</span>
+                                <i data-lucide="box" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="i-valor">$3,842,500</h3>
+                                <span class="kpi-subtext">745 SKUs con Stock</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-orange">
+                            <div class="kpi-header">
+                                <span>Días de Cobertura (DOH)</span>
+                                <i data-lucide="calendar-days" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">42.5 Días</h3>
+                                <span class="kpi-subtext">Rango Óptimo: 30-60 Días</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-red">
+                            <div class="kpi-header">
+                                <span>SKUs en Riesgo de Rotura</span>
+                                <i data-lucide="alert-triangle" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">18 SKUs</h3>
+                                <span class="kpi-subtext">Por debajo de Stock Seguridad</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Rotación Anual de Inventario</span>
+                                <i data-lucide="refresh-cw" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">8.6x</h3>
+                                <span class="kpi-subtext">Veces al Año</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Matriz de Salud del Stock (Distribución por DOH)</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-i-health"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Clasificación ABC por Valor en Almacén</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-i-abc"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. SISTEMAS TAB -->
+                <section id="tab-sistemas" class="tab-content">
+                    <div class="kpi-grid">
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>SLA de Ejecución ETL</span>
+                                <i data-lucide="check-circle" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">100.0%</h3>
+                                <span class="kpi-subtext">Últimas 2 Cargas Exitosas</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Tiempo Promedio de Carga</span>
+                                <i data-lucide="timer" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">68 Segundos</h3>
+                                <span class="kpi-subtext">2.2M Filas Procesadas</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-purple">
+                            <div class="kpi-header">
+                                <span>Total Registros DW_PB</span>
+                                <i data-lucide="database" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">2,219,241</h3>
+                                <span class="kpi-subtext">11 Dim / 8 Facts</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-orange">
+                            <div class="kpi-header">
+                                <span>Fragmentación Índices</span>
+                                <i data-lucide="layers" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value">2.4%</h3>
+                                <span class="kpi-subtext">Estado Óptimo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-card glassmorphism">
+                        <div class="card-header">
+                            <h3>Auditoría de Control de Cargas ETL (stg.Control_Cargas_ETL)</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="table-etl-audit">
+                                <thead>
+                                    <tr>
+                                        <th>Control ID</th>
+                                        <th>Proceso</th>
+                                        <th>Estado</th>
+                                        <th>Inicio</th>
+                                        <th>Fin</th>
+                                        <th>Duración (seg)</th>
+                                        <th>Mensaje / Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
