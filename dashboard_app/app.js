@@ -5,12 +5,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     // State Management
     let currentCurrency = 'USD';
-    let currentPeriod = 'all'; // 'all', '2025', '2026'
+    let currentPeriod = 'all'; // 'all', '2015' .. '2026'
     let currentTheme = 'dark'; // 'dark', 'light'
+    let isSidebarCollapsed = false;
     let currentTab = 'overview';
     const chartInstances = {};
 
     // DOM Elements
+    const appLayout = document.getElementById('app-layout');
     const tabButtons = document.querySelectorAll('.nav-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     const tabTitle = document.getElementById('tab-title');
@@ -21,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnRefresh = document.getElementById('btn-refresh');
     const btnThemeToggle = document.getElementById('btn-theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
+    const btnSidebarToggle = document.getElementById('btn-sidebar-toggle');
+    const sidebarToggleIcon = document.getElementById('sidebar-toggle-icon');
     const searchVentasInput = document.getElementById('search-table-ventas');
 
     // Tab Subtitles Map
@@ -70,6 +74,26 @@ document.addEventListener('DOMContentLoaded', () => {
             renderChartsForTab(currentTab);
         });
     });
+
+    // Sidebar Collapsible Toggle Handler
+    if (btnSidebarToggle) {
+        btnSidebarToggle.addEventListener('click', () => {
+            isSidebarCollapsed = !isSidebarCollapsed;
+            if (isSidebarCollapsed) {
+                appLayout.classList.add('sidebar-collapsed');
+                sidebarToggleIcon.setAttribute('data-lucide', 'panel-left-open');
+            } else {
+                appLayout.classList.remove('sidebar-collapsed');
+                sidebarToggleIcon.setAttribute('data-lucide', 'panel-left-close');
+            }
+            if (window.lucide) window.lucide.createIcons();
+
+            // Resize charts smoothly
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 300);
+        });
+    }
 
     // Theme Switcher Handler (Oscuro / Claro)
     if (btnThemeToggle) {

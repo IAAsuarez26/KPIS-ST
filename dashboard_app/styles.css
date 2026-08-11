@@ -8,6 +8,7 @@
     --font-body: 'Inter', sans-serif;
 
     --sidebar-width: 260px;
+    --sidebar-collapsed-width: 76px;
     --topbar-height: 80px;
     --radius-lg: 16px;
     --radius-md: 10px;
@@ -91,6 +92,7 @@ body.light-theme {
 .app-layout {
     display: flex;
     min-height: 100vh;
+    transition: all 0.3s ease;
 }
 
 /* Sidebar */
@@ -103,6 +105,7 @@ body.light-theme {
     position: fixed;
     height: 100vh;
     z-index: 100;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .brand-header {
@@ -111,6 +114,7 @@ body.light-theme {
     gap: 12px;
     padding: 24px 20px;
     border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
 }
 
 .brand-logo {
@@ -122,6 +126,7 @@ body.light-theme {
     align-items: center;
     justify-content: center;
     color: #FFF;
+    flex-shrink: 0;
 }
 
 .brand-text h2 {
@@ -129,6 +134,7 @@ body.light-theme {
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .brand-badge {
@@ -144,6 +150,7 @@ body.light-theme {
 .brand-text p {
     font-size: 0.75rem;
     color: var(--text-secondary);
+    white-space: nowrap;
 }
 
 /* Navigation Menu */
@@ -162,6 +169,7 @@ body.light-theme {
     color: var(--text-muted);
     letter-spacing: 1px;
     padding: 12px 12px 6px 12px;
+    white-space: nowrap;
 }
 
 .nav-btn {
@@ -180,11 +188,13 @@ body.light-theme {
     transition: all 0.2s ease;
     width: 100%;
     text-align: left;
+    white-space: nowrap;
 }
 
 .nav-btn svg {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
 }
 
 .nav-btn:hover {
@@ -220,17 +230,60 @@ body.light-theme {
     border-radius: 50%;
     background-color: var(--accent-green);
     box-shadow: 0 0 10px var(--accent-green);
+    flex-shrink: 0;
 }
 
 .status-text strong {
     display: block;
     font-size: 0.8rem;
     color: var(--accent-green);
+    white-space: nowrap;
 }
 
 .status-text small {
     font-size: 0.7rem;
     color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* ===============================================================================
+   COLLAPSED SIDEBAR STATE
+   =============================================================================== */
+.app-layout.sidebar-collapsed .sidebar {
+    width: var(--sidebar-collapsed-width);
+}
+
+.app-layout.sidebar-collapsed .brand-text,
+.app-layout.sidebar-collapsed .nav-section-title,
+.app-layout.sidebar-collapsed .nav-btn span,
+.app-layout.sidebar-collapsed .status-text {
+    display: none !important;
+}
+
+.app-layout.sidebar-collapsed .brand-header {
+    justify-content: center;
+    padding: 20px 10px;
+}
+
+.app-layout.sidebar-collapsed .nav-btn {
+    justify-content: center;
+    padding: 14px;
+}
+
+.app-layout.sidebar-collapsed .nav-btn.active {
+    border-left: none;
+    border-bottom: 3px solid var(--accent-blue);
+    border-radius: var(--radius-md);
+}
+
+.app-layout.sidebar-collapsed .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+.app-layout.sidebar-collapsed .sidebar-footer {
+    padding: 12px 10px;
+    display: flex;
+    justify-content: center;
 }
 
 /* Main Content Area */
@@ -240,6 +293,7 @@ body.light-theme {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Top Bar */
@@ -255,6 +309,12 @@ body.light-theme {
     position: sticky;
     top: 0;
     z-index: 90;
+}
+
+.left-header-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .page-title-area h1 {
@@ -339,7 +399,7 @@ body.light-theme {
     cursor: pointer;
 }
 
-/* FIX: Dropdown Option Colors for Dark & Light Mode */
+/* Dropdown Option Colors for Dark & Light Mode */
 body.dark-theme .filter-select option {
     background-color: #111827 !important;
     color: #F9FAFB !important;
