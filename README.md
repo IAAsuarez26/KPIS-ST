@@ -12,7 +12,7 @@ Este repositorio contiene la arquitectura completa del **Data Warehouse Empresar
 ## 🔗 Enlaces Oficiales de Producción
 
 - 🌐 **Aplicación Web Desplegada en Vercel**: [https://kpis-st-dashboard.vercel.app](https://kpis-st-dashboard.vercel.app)
-- 🐙 **Repositorio Oficial en GitHub**: [https://github.com/IAAsuarez26/Datawarehouse.git](https://github.com/IAAsuarez26/Datawarehouse.git)
+- 🐙 **Repositorio Oficial en GitHub**: [https://github.com/IAAsuarez26/KPIS-ST.git](https://github.com/IAAsuarez26/KPIS-ST.git)
 - 💻 **Servidor Local**: `http://localhost:8088/`
 
 ---
