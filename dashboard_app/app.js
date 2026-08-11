@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ventas: { title: 'Ventas y Rentabilidad', subtitle: 'Análisis Comercial, Matriz BCG y Regla de Pareto de Clientes' },
         compras: { title: 'Compras y Proveedores', subtitle: 'Evaluación de Abastecimiento, Fill Rate % y Variación PPV' },
         finanzas: { title: 'Finanzas y P&L', subtitle: 'Estado de Ganancias y Pérdidas, Balance General y Ciclo de Efectivo' },
-        produccion: { title: 'Producción y Planta', subtitle: 'Eficiencia OEE, Control de Mermas/Scrap y Horas Hombre/Máquina' },
-        inventario: { title: 'Inventario y Stock', subtitle: 'Valorización de Stock, Días de Cobertura (DOH) y Clasificación ABC' },
+        produccion: { title: 'Producción y Liberación de Productos', subtitle: 'Eficiencia OEE, Embudo de Liberación para Ventas (ATP) y Control de Mermas' },
+        inventario: { title: 'Inventario y Stock', subtitle: 'Valorización de Stock Liberado/Retenido, Cobertura (DOH) y Clasificación ABC' },
         sistemas: { title: 'Gobernanza TI & ETLs', subtitle: 'Monitoreo de SLAs de Carga, Auditoría de Errores y Salud de Base de Datos' }
     };
 
@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (window.lucide) window.lucide.createIcons();
             
-            // Re-render charts with theme adapted colors
             Chart.defaults.color = currentTheme === 'dark' ? '#9CA3AF' : '#475569';
             renderChartsForTab(currentTab, true);
         });
@@ -159,8 +158,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('f-opex').textContent = formatMoney(s.opexUSD);
         document.getElementById('f-neto').textContent = formatMoney(s.netProfitUSD);
 
+        // Produccion & Liberacion KPIs
+        document.getElementById('p-oee').textContent = formatPct(s.oeePct);
+        document.getElementById('p-release-pct').textContent = formatPct(s.onTimeReleasePct);
+        document.getElementById('p-released-val').textContent = formatMoney(s.releasedStockUSD);
+        document.getElementById('p-hold-days').textContent = s.holdDays + ' Días';
+
         // Inventario KPIs
         document.getElementById('i-valor').textContent = formatMoney(s.totalInventoryUSD);
+        document.getElementById('i-liberado-val').textContent = formatMoney(s.releasedStockUSD);
+        document.getElementById('i-retenido-val').textContent = formatMoney(s.onHoldStockUSD);
 
         // Populate Table
         renderVentasTable();
@@ -452,11 +459,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4. PRODUCCION CHARTS
+    // 4. PRODUCCION & LIBERACION CHARTS
     function initProduccionCharts(force = false) {
-        if (!force && chartInstances['p-oee']) return;
+        if (!force && chartInstances['p-release-funnel']) return;
+        destroyChart('p-release-funnel');
         destroyChart('p-oee');
-        destroyChart('p-scrap');
+
+        const ctxFunnel = document.getElementById('chart-p-release-funnel');
+        if (ctxFunnel) {
+            chartInstances['p-release-funnel'] = new Chart(ctxFunnel, {
+                type: 'bar',
+                data: {
+                    labels: DW_DATA.productReleaseFunnel.map(f => f.stage),
+                    datasets: [{
+                        label: 'Unidades de Producto Terminadas',
+                        data: DW_DATA.productReleaseFunnel.map(f => f.units),
+                        backgroundColor: ['#3B82F6', '#8B5CF6', '#F59E0B', '#10B981']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+            });
+        }
 
         const ctxOEE = document.getElementById('chart-p-oee-breakdown');
         if (ctxOEE) {
@@ -469,22 +492,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         { label: 'Rendimiento %', data: DW_DATA.oeeBreakdown.map(o => o.performance), backgroundColor: '#F59E0B' },
                         { label: 'Calidad %', data: DW_DATA.oeeBreakdown.map(o => o.quality), backgroundColor: '#10B981' }
                     ]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
-
-        const ctxScrap = document.getElementById('chart-p-scrap');
-        if (ctxScrap) {
-            chartInstances['p-scrap'] = new Chart(ctxScrap, {
-                type: 'bar',
-                data: {
-                    labels: DW_DATA.scrapPareto.map(s => s.category),
-                    datasets: [{
-                        label: `Costo Merma (${currentCurrency})`,
-                        data: DW_DATA.scrapPareto.map(s => currentCurrency === 'USD' ? s.scrapUSD : s.scrapUSD * DW_DATA.exchangeRate),
-                        backgroundColor: '#EF4444'
-                    }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });

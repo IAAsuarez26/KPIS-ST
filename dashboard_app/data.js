@@ -1,5 +1,5 @@
 /* ===============================================================================
-   ANTIGRAVITY BI SUITE - DW_PB ENTERPRISE DATASET (PERIOD-BASED MULTI-YEAR DATA)
+   ANTIGRAVITY BI SUITE - DW_PB ENTERPRISE DATASET (INCLUDES PRODUCT RELEASE DATA)
    =============================================================================== */
 
 const DW_DATA = {
@@ -22,7 +22,13 @@ const DW_DATA = {
             netProfitUSD: 2327846,
             facturadoUSD: 15420100,
             devolucionesUSD: 569680,
-            ticketUSD: 21.48
+            ticketUSD: 21.48,
+
+            // Product Release & Sales Availability Metrics
+            onTimeReleasePct: 97.4,
+            releasedStockUSD: 3520000,
+            onHoldStockUSD: 322500,
+            holdDays: 2.8
         },
         '2025': {
             totalSalesUSD: 12220000,
@@ -39,7 +45,12 @@ const DW_DATA = {
             netProfitUSD: 1895600,
             facturadoUSD: 12680000,
             devolucionesUSD: 460000,
-            ticketUSD: 20.80
+            ticketUSD: 20.80,
+
+            onTimeReleasePct: 96.2,
+            releasedStockUSD: 3150000,
+            onHoldStockUSD: 300000,
+            holdDays: 3.2
         },
         '2026': {
             totalSalesUSD: 2630000,
@@ -56,7 +67,12 @@ const DW_DATA = {
             netProfitUSD: 432246,
             facturadoUSD: 2740100,
             devolucionesUSD: 109680,
-            ticketUSD: 23.50
+            ticketUSD: 23.50,
+
+            onTimeReleasePct: 98.6,
+            releasedStockUSD: 3520000,
+            onHoldStockUSD: 322500,
+            holdDays: 2.1
         }
     },
 
@@ -230,6 +246,13 @@ const DW_DATA = {
         { plant: 'Planta Caracas Envasado', availability: 94.0, performance: 90.5, quality: 98.5, oee: 83.8 }
     ],
 
+    productReleaseFunnel: [
+        { stage: '1. Programado en Plan Fabricación', units: 165000 },
+        { stage: '2. Producido en Planta', units: 158000 },
+        { stage: '3. En Cuarentena / Aseguramiento Calidad', units: 14500 },
+        { stage: '4. Liberado Aprobado para Ventas (ATP)', units: 143500 }
+    ],
+
     scrapPareto: [
         { category: 'Envases Defectuosos', scrapUSD: 18500, cumPct: 42.0 },
         { category: 'Perdida Llenado Falla Sello', scrapUSD: 12400, cumPct: 70.2 },
@@ -238,10 +261,10 @@ const DW_DATA = {
     ],
 
     inventoryHealth: [
-        { status: 'Stock Óptimo (15-60 días)', count: 520, valueUSD: 2680000 },
-        { status: 'Sobreinventario (> 60 días)', count: 145, valueUSD: 942500 },
-        { status: 'Riesgo de Rotura (< 15 días)', count: 62, valueUSD: 185000 },
-        { status: 'Sin Movimiento / Obsoleto', count: 18, valueUSD: 35000 }
+        { status: 'Stock Liberado Óptimo (15-60 días)', count: 520, valueUSD: 2680000 },
+        { status: 'Sobreinventario (> 60 días)', count: 145, valueUSD: 840000 },
+        { status: 'Retenido en Cuarentena / Calidad', count: 48, valueUSD: 322500 },
+        { status: 'Riesgo de Rotura (< 15 días)', count: 62, valueUSD: 185000 }
     ],
 
     inventoryABC: [

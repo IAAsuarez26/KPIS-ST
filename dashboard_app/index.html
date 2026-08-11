@@ -53,7 +53,7 @@
                 
                 <button class="nav-btn" data-tab="produccion">
                     <i data-lucide="factory"></i>
-                    <span>Producción y Planta</span>
+                    <span>Producción y Liberación</span>
                 </button>
                 
                 <button class="nav-btn" data-tab="inventario">
@@ -446,41 +446,41 @@
                                 <i data-lucide="activity" class="kpi-icon"></i>
                             </div>
                             <div class="kpi-body">
-                                <h3 class="kpi-value">82.4%</h3>
+                                <h3 class="kpi-value" id="p-oee">82.4%</h3>
                                 <span class="kpi-subtext">World Class: >85%</span>
-                            </div>
-                        </div>
-
-                        <div class="kpi-card glassmorphism accent-blue">
-                            <div class="kpi-header">
-                                <span>Cumplimiento del Plan</span>
-                                <i data-lucide="target" class="kpi-icon"></i>
-                            </div>
-                            <div class="kpi-body">
-                                <h3 class="kpi-value">94.8%</h3>
-                                <span class="kpi-subtext">Schedule Attainment</span>
                             </div>
                         </div>
 
                         <div class="kpi-card glassmorphism accent-green">
                             <div class="kpi-header">
-                                <span>Factor Calidad (Conformidad)</span>
-                                <i data-lucide="shield-check" class="kpi-icon"></i>
+                                <span>Tasa Liberación a Ventas</span>
+                                <i data-lucide="check-square" class="kpi-icon"></i>
                             </div>
                             <div class="kpi-body">
-                                <h3 class="kpi-value">97.9%</h3>
-                                <span class="kpi-subtext">2.1% Merma / Scrap</span>
+                                <h3 class="kpi-value" id="p-release-pct">97.4%</h3>
+                                <span class="kpi-badge positive">Aprobado Calidad</span>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Stock Liberado ATP (USD)</span>
+                                <i data-lucide="package-check" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="p-released-val">$3,520,000</h3>
+                                <span class="kpi-subtext">Disponible Facturación</span>
                             </div>
                         </div>
 
                         <div class="kpi-card glassmorphism accent-purple">
                             <div class="kpi-header">
-                                <span>Eficiencia Mano de Obra</span>
+                                <span>Tiempo Retención Calidad</span>
                                 <i data-lucide="clock" class="kpi-icon"></i>
                             </div>
                             <div class="kpi-body">
-                                <h3 class="kpi-value">91.2%</h3>
-                                <span class="kpi-subtext">Horas Est. vs Reales</span>
+                                <h3 class="kpi-value" id="p-hold-days">2.8 Días</h3>
+                                <span class="kpi-subtext">En Inspección/Lab</span>
                             </div>
                         </div>
                     </div>
@@ -488,19 +488,19 @@
                     <div class="charts-grid grid-2">
                         <div class="chart-card glassmorphism">
                             <div class="card-header">
-                                <h3>Desglose de Factores del OEE por Planta</h3>
+                                <h3>Embudo de Liberación de Productos para Ventas (ATP)</h3>
                             </div>
                             <div class="chart-container">
-                                <canvas id="chart-p-oee-breakdown"></canvas>
+                                <canvas id="chart-p-release-funnel"></canvas>
                             </div>
                         </div>
 
                         <div class="chart-card glassmorphism">
                             <div class="card-header">
-                                <h3>Pareto de Mermas / Scrap por Línea de Producto</h3>
+                                <h3>Desglose de Factores del OEE por Planta</h3>
                             </div>
                             <div class="chart-container">
-                                <canvas id="chart-p-scrap"></canvas>
+                                <canvas id="chart-p-oee-breakdown"></canvas>
                             </div>
                         </div>
                     </div>
@@ -520,6 +520,17 @@
                             </div>
                         </div>
 
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Stock Liberado Facturable</span>
+                                <i data-lucide="check-circle" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="i-liberado-val">$3,520,000</h3>
+                                <span class="kpi-badge positive">91.6% del Total</span>
+                            </div>
+                        </div>
+
                         <div class="kpi-card glassmorphism accent-orange">
                             <div class="kpi-header">
                                 <span>Días de Cobertura (DOH)</span>
@@ -533,23 +544,12 @@
 
                         <div class="kpi-card glassmorphism accent-red">
                             <div class="kpi-header">
-                                <span>SKUs en Riesgo de Rotura</span>
-                                <i data-lucide="alert-triangle" class="kpi-icon"></i>
+                                <span>Stock Retenido Cuarentena</span>
+                                <i data-lucide="shield-alert" class="kpi-icon"></i>
                             </div>
                             <div class="kpi-body">
-                                <h3 class="kpi-value">18 SKUs</h3>
-                                <span class="kpi-subtext">Por debajo de Stock Seguridad</span>
-                            </div>
-                        </div>
-
-                        <div class="kpi-card glassmorphism accent-green">
-                            <div class="kpi-header">
-                                <span>Rotación Anual de Inventario</span>
-                                <i data-lucide="refresh-cw" class="kpi-icon"></i>
-                            </div>
-                            <div class="kpi-body">
-                                <h3 class="kpi-value">8.6x</h3>
-                                <span class="kpi-subtext">Veces al Año</span>
+                                <h3 class="kpi-value" id="i-retenido-val">$322,500</h3>
+                                <span class="kpi-subtext">48 SKUs en Calidad</span>
                             </div>
                         </div>
                     </div>
@@ -557,7 +557,7 @@
                     <div class="charts-grid grid-2">
                         <div class="chart-card glassmorphism">
                             <div class="card-header">
-                                <h3>Matriz de Salud del Stock (Distribución por DOH)</h3>
+                                <h3>Matriz de Salud del Stock (Incluye Estado Liberado/Cuarentena)</h3>
                             </div>
                             <div class="chart-container">
                                 <canvas id="chart-i-health"></canvas>
