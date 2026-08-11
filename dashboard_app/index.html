@@ -29,9 +29,16 @@
             </div>
 
             <nav class="nav-menu">
+                <div class="nav-section-title">DW_CCR DATAWAREHOUSE</div>
+                
+                <button class="nav-btn active" data-tab="ccr-soporte" title="Atención & KPIs DW_CCR">
+                    <i data-lucide="headphones"></i>
+                    <span>Atención & KPIs DW_CCR</span>
+                </button>
+
                 <div class="nav-section-title">MÓDULOS DE NEGOCIO</div>
                 
-                <button class="nav-btn active" data-tab="overview" title="Executive Overview">
+                <button class="nav-btn" data-tab="overview" title="Executive Overview">
                     <i data-lucide="layout-dashboard"></i>
                     <span>Executive Overview</span>
                 </button>
@@ -103,7 +110,7 @@
                     </button>
 
                     <!-- Moneda Toggle -->
-                    <div class="currency-toggle">
+                    <div class="currency-toggle" style="display: none;">
                         <span class="toggle-label">Moneda:</span>
                         <div class="toggle-buttons">
                             <button id="btn-usd" class="toggle-btn active" data-currency="USD">$ USD</button>
@@ -111,22 +118,56 @@
                         </div>
                     </div>
 
-                    <!-- Period Filter (Solo años a partir de 2021) -->
+                    <!-- Filtro por Año -->
                     <div class="filter-group">
                         <i data-lucide="calendar" class="filter-icon"></i>
-                        <select id="filter-period" class="filter-select">
-                            <option value="all" selected>Histórico Total</option>
+                        <select id="filter-year" class="filter-select">
+                            <option value="all" selected>Todos los Años</option>
                             <option value="2026">Año 2026</option>
                             <option value="2025">Año 2025</option>
                             <option value="2024">Año 2024</option>
                             <option value="2023">Año 2023</option>
                             <option value="2022">Año 2022</option>
                             <option value="2021">Año 2021</option>
+                            <option value="2020">Año 2020</option>
+                            <option value="2019">Año 2019</option>
+                            <option value="2018">Año 2018</option>
+                            <option value="2017">Año 2017</option>
+                        </select>
+                    </div>
+
+                    <!-- Filtro por Mes -->
+                    <div class="filter-group">
+                        <i data-lucide="calendar-days" class="filter-icon"></i>
+                        <select id="filter-month" class="filter-select">
+                            <option value="all" selected>Todos los Meses</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+
+                    <!-- Modo de Comparación -->
+                    <div class="filter-group highlight-filter">
+                        <i data-lucide="git-compare" class="filter-icon"></i>
+                        <select id="filter-compare" class="filter-select compare-select">
+                            <option value="none" selected>Sin Comparación</option>
+                            <option value="yoy">Comparar YoY (vs Año Ant.)</option>
+                            <option value="mom">Comparar MoM (vs Mes Ant.)</option>
                         </select>
                     </div>
 
                     <!-- Refresh Action -->
-                    <button id="btn-refresh" class="icon-btn" title="Refrescar Datos">
+                    <button id="btn-refresh" class="icon-btn" title="Refrescar Datos desde DW_CCR">
                         <i data-lucide="rotate-cw"></i>
                     </button>
                 </div>
@@ -134,8 +175,212 @@
 
             <!-- Tab Content Containers -->
             <div class="tab-viewport">
+                <!-- DW_CCR SOPORTE & SISTEMAS TAB (Pestaña Principal) -->
+                <section id="tab-ccr-soporte" class="tab-content active">
+                    <!-- Banner de Estado de Filtro / Comparación -->
+                    <div class="compare-banner glassmorphism" id="ccr-compare-banner">
+                        <div class="banner-info">
+                            <i data-lucide="sliders" class="banner-icon"></i>
+                            <span id="ccr-banner-text">Mostrando Datos Históricos de DW_CCR (2017 - 2026) | Sin Comparación</span>
+                        </div>
+                        <div class="banner-tags" id="ccr-banner-tags">
+                            <span class="badge-tag cyan">Base: DW_CCR</span>
+                            <span class="badge-tag green">Filtro Interactivo</span>
+                        </div>
+                    </div>
+
+                    <!-- Grid de Tarjetas KPI -->
+                    <div class="kpi-grid">
+                        <!-- KPI 1: Total Tickets -->
+                        <div class="kpi-card glassmorphism accent-blue">
+                            <div class="kpi-header">
+                                <span>Total Tickets Atendidos</span>
+                                <i data-lucide="ticket" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="kpi-ccr-total">3,157</h3>
+                                <span class="kpi-badge neutral" id="badge-ccr-total">3,157 Histórico</span>
+                            </div>
+                            <div class="kpi-footer" id="footer-ccr-total">Origen: osTicket / DW_CCR</div>
+                        </div>
+
+                        <!-- KPI 2: Tasa de Cierre / Resolución -->
+                        <div class="kpi-card glassmorphism accent-green">
+                            <div class="kpi-header">
+                                <span>Tasa de Resolución Operativa</span>
+                                <i data-lucide="check-circle-2" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="kpi-ccr-cierre">99.2%</h3>
+                                <span class="kpi-badge positive" id="badge-ccr-cierre"><i data-lucide="arrow-up-right"></i> Meta: 98%</span>
+                            </div>
+                            <div class="kpi-footer" id="footer-ccr-cierre">3,133 Tickets Resueltos / Cerrados</div>
+                        </div>
+
+                        <!-- KPI 3: Cumplimiento de SLA -->
+                        <div class="kpi-card glassmorphism accent-purple">
+                            <div class="kpi-header">
+                                <span>Cumplimiento de SLA Global</span>
+                                <i data-lucide="shield-check" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="kpi-ccr-sla">99.2%</h3>
+                                <span class="kpi-badge positive" id="badge-ccr-sla"><i data-lucide="arrow-up-right"></i> Excelente</span>
+                            </div>
+                            <div class="kpi-footer" id="footer-ccr-sla">Compromiso de Nivel de Servicio</div>
+                        </div>
+
+                        <!-- KPI 4: Tiempo Medio de Resolución (MTTR) -->
+                        <div class="kpi-card glassmorphism accent-orange">
+                            <div class="kpi-header">
+                                <span>Tiempo Medio de Resolución (MTTR)</span>
+                                <i data-lucide="clock" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="kpi-ccr-mttr">708.6 h</h3>
+                                <span class="kpi-badge neutral" id="badge-ccr-mttr">~29.5 Días</span>
+                            </div>
+                            <div class="kpi-footer" id="footer-ccr-mttr">Promedio de Cierre Histórico</div>
+                        </div>
+
+                        <!-- KPI 5: Backlog Activo y Vencidos -->
+                        <div class="kpi-card glassmorphism accent-red">
+                            <div class="kpi-header">
+                                <span>Backlog Activo y Mora</span>
+                                <i data-lucide="alert-triangle" class="kpi-icon"></i>
+                            </div>
+                            <div class="kpi-body">
+                                <h3 class="kpi-value" id="kpi-ccr-backlog">24</h3>
+                                <span class="kpi-badge warning" id="badge-ccr-backlog">0.76% Tasa Mora</span>
+                            </div>
+                            <div class="kpi-footer" id="footer-ccr-backlog">24 Tickets Abiertos Pendientes</div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Grid 1: Tendencia y Categorías -->
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Evolución Mensual de Tickets y Comparación YoY / MoM</h3>
+                                <div class="card-actions">
+                                    <span class="badge-tag cyan" id="tag-chart-compare">Curva Principal vs Periodo Ant.</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-ccr-trend"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Distribución por Tema / Categoría de Soporte</h3>
+                                <div class="card-actions">
+                                    <span class="badge-tag green">Requerimientos osTicket</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-ccr-topics"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Grid 2: Desempeño por Agente y Estado -->
+                    <div class="charts-grid grid-2">
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Carga de Trabajo y MTTR por Técnico / Agente de TI</h3>
+                                <div class="card-actions">
+                                    <span class="badge-tag purple">Personal de Soporte</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-ccr-agents"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Salud de Tickets por Estado y Trazabilidad</h3>
+                                <div class="card-actions">
+                                    <span class="badge-tag orange">Auditoría Operativa</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-ccr-status"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tablas de Datos e Histórico -->
+                    <div class="charts-grid grid-2" style="margin-top: 1.5rem;">
+                        <!-- Tabla 1: Categorías de Soporte -->
+                        <div class="table-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Resumen por Tema / Categoría de Soporte</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table" id="table-ccr-topics">
+                                    <thead>
+                                        <tr>
+                                            <th>Categoría / Tema</th>
+                                            <th>Total Tickets</th>
+                                            <th>% del Total</th>
+                                            <th>MTTR (Horas)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Tabla 2: Rendimiento de Agentes -->
+                        <div class="table-card glassmorphism">
+                            <div class="card-header">
+                                <h3>Control de Carga y Rendimiento de Agentes Staff</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table" id="table-ccr-agents">
+                                    <thead>
+                                        <tr>
+                                            <th>Agente de TI</th>
+                                            <th>Tickets Atendidos</th>
+                                            <th>% Carga</th>
+                                            <th>Vencidos</th>
+                                            <th>MTTR Promedio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla 3: Auditoría ETL -->
+                    <div class="table-card glassmorphism" style="margin-top: 1.5rem;">
+                        <div class="card-header">
+                            <h3>Auditoría de Control de Cargas ETL (staging.ETL_Log_Ejecucion)</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="table-ccr-audit">
+                                <thead>
+                                    <tr>
+                                        <th>Log ID</th>
+                                        <th>Proceso</th>
+                                        <th>Paso</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Estado</th>
+                                        <th>Registros Afectados</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- 0. OVERVIEW TAB -->
-                <section id="tab-overview" class="tab-content active">
+                <section id="tab-overview" class="tab-content">
                     <!-- KPI Cards Grid -->
                     <div class="kpi-grid">
                         <div class="kpi-card glassmorphism accent-blue">
@@ -664,6 +909,7 @@
 
     <!-- Scripts -->
     <script src="data.js"></script>
+    <script src="data_dw_ccr.js"></script>
     <script src="app.js"></script>
     <script>
         lucide.createIcons();
