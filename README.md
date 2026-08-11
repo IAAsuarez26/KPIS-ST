@@ -1,89 +1,89 @@
-# 🏢 Data Warehouse Empresarial DW_PB & Dashboard Web Interactivo
+# 💻 KPI's S&T - Data Warehouse & Portal Analítico de Sistemas y Tecnología
 
-![Licencia](https://img.shields.io/badge/Estado-Producci%C3%B3n-success)
-![SQL Server](https://img.shields.io/badge/Database-Microsoft%20SQL%20Server-blue)
-![ERP](https://img.shields.io/badge/ERP-Microsoft%20Dynamics%20GP-purple)
-![Dashboard](https://img.shields.io/badge/UI-Antigravity%20BI%20Suite-orange)
+![Estado](https://img.shields.io/badge/Estado-Producci%C3%B3n-success)
+![SQL Server](https://img.shields.io/badge/Database-Microsoft%20SQL%20Server%20DW__CCR-blue)
+![Source](https://img.shields.io/badge/Origen-osTicket%20MySQL-orange)
+![Deploy](https://img.shields.io/badge/Vercel-kpis--st--dashboard-black)
 
-Este repositorio contiene la arquitectura completa, modelos DDL, procedimientos almacenados ETL y la **Aplicación Web de Dashboards Interactivos (Antigravity BI Suite)** para el Data Warehouse Empresarial **`DW_PB`**, diseñado a partir del ERP Microsoft Dynamics GP.
+Este repositorio contiene la arquitectura completa del **Data Warehouse Empresarial `DW_CCR`**, procedimientos almacenados ETL en SQL Server T-SQL, scripts de ingesta automatizada en Python y el **Portal Web Analítico Interactivo de KPI's S&T (Sistemas & Tecnología)**.
 
 ---
 
-## 📐 Arquitectura del Data Warehouse (DW_PB)
+## 🔗 Enlaces Oficiales de Producción
+
+- 🌐 **Aplicación Web Desplegada en Vercel**: [https://kpis-st-dashboard.vercel.app](https://kpis-st-dashboard.vercel.app)
+- 🐙 **Repositorio Oficial en GitHub**: [https://github.com/IAAsuarez26/Datawarehouse.git](https://github.com/IAAsuarez26/Datawarehouse.git)
+- 💻 **Servidor Local**: `http://localhost:8088/`
+
+---
+
+## 📐 Arquitectura del Data Warehouse (`DW_CCR`)
 
 ```mermaid
 graph TD
-    A["ERP Origen: Microsoft Dynamics GP (PB / DYNAMICS)"] --> B["Capa Staging / Control (stg)"]
-    B --> C["Capa Dimensiones (dim)"]
-    C --> D["Capa Tablas de Hechos (fact_*)"]
-    D --> E["Capa Semántica & Views (pbi)"]
-    E --> F["Antigravity BI Suite (Dashboard Web)"]
+    A["Sistema Origen: osTicket (MySQL 192.168.0.99)"] --> B["Capa Staging (staging.stg_ost_*)"]
+    B --> C["Capa Dimensiones Conformadas (dim.Dim_*)"]
+    C --> D["Capa Tablas de Hechos (fact_ccr.Fact_*)"]
+    D --> E["Portal Web Interactivo KPI's S&T (Chart.js)"]
 ```
 
-### Esquema y Dimensiones del DW:
-- **11 Dimensiones Maestras:** `Dim_Tiempo` (13,149 días), `Dim_Cliente`, `Dim_Proveedor`, `Dim_Producto`, `Dim_Almacen`, `Dim_Cuenta_Contable`, `Dim_Empresa`, `Dim_Usuario`, `Dim_Documento_SOP`, `Dim_Vendedor`, `Dim_Tasa_Cambio`.
-- **4 Data Marts Integrados (2.2M+ Filas Processadas):**
-  - **`Fact_Ventas_Transaccional`:** 691,138 registros por SKU.
-  - **`Fact_Movimientos_Contables`:** 1,448,864 movimientos GL.
-  - **`Fact_Entrega_Facturas_Cliente`:** 51,326 despachos.
-  - **`Fact_Compras_Ordenes`:** 7,836 órdenes POP.
+### Modelado Dimensional (Esquema en Estrella OLAP):
+- **Capa Staging (`staging`)**: 12 tablas físicas de ingesta limpia (`stg_ost_ticket`, `stg_ost_user`, `stg_ost_organization`, etc.).
+- **Dimensiones (`dim`)**: `Dim_Tiempo` (2015 - 2030), `Dim_Organizacion`, `Dim_Usuario_Cliente`, `Dim_Agente_Staff`, `Dim_Departamento`, `Dim_Equipo`, `Dim_Tema_Ayuda`, `Dim_Estado_Ticket`, `Dim_Prioridad_Ticket`, `Dim_SLA`.
+- **Tablas de Hechos (`fact_ccr`)**:
+  - `Fact_Atencion_Tickets`: 3,157 tickets procesados.
+  - `Fact_Eventos_Trazabilidad`: 11,008 eventos de auditoría.
+  - `Fact_Interacciones_Conversaciones`: 7,090 registros de mensajes y respuestas.
 
 ---
 
-## 🎨 Aplicación Web de Dashboards (Antigravity BI Suite)
+## 🎨 Portal Web Interactivo (KPI's S&T)
 
-Ubicada en la carpeta `dashboard_app/`, incluye:
-- **Navegación 360° en 6 Módulos:**
-  1. 🌐 **Executive Overview:** Visión ejecutiva consolidad.
-  2. 📈 **Ventas y Rentabilidad:** Matriz BCG (Volumen vs. % Margen) y Curva de Pareto 80/20.
-  3. 🚚 **Compras y Proveedores:** Fill Rate % y Evaluador de Proveedores.
-  4. 💰 **Finanzas y P&L:** Waterfall Chart de Ganancias y Pérdidas y Ciclo de Efectivo.
-  5. ⚙️ **Producción y Planta:** Indicador OEE Global %, Yield y Control de Mermas/Scrap.
-  6. 📦 **Inventario y Stock:** Valor del Stock, Días de Cobertura (DOH) y Clasificación ABC.
-  7. 🛠️ **Gobernanza TI:** Auditoría en tiempo real de `stg.Control_Cargas_ETL`.
-- **Conmutador de Moneda USD / VEF:** Recálculo interactivo en tiempo real.
-- **Estilo Glassmorphism Modo Oscuro:** Diseñado con la habilidad `ui-ux-pro-max` y **Chart.js**.
+Ubicado en la carpeta `dashboard_app/`, incluye:
+- **Filtros por Fecha, Año (2017 - 2026) y Mes**.
+- **Modos de Comparación Activos**:
+  - **YoY (Year over Year)**: Comparación Año Seleccionado vs Año Anterior.
+  - **MoM (Month over Month)**: Comparación Mes Seleccionado vs Mes Anterior.
+- **Insignias de Variación % y Diferencia en Puntos de SLA**.
+- **Módulos de Análisis**:
+  1. 🎧 **Atención & KPIs DW_CCR**: Tarjetas KPI, resumen ejecutivo y gráficos de tendencia.
+  2. 👥 **Productividad por Agente**: Matriz de carga de trabajo por técnico.
+  3. 📑 **Demanda por Categoría**: Desglose por Software de Negocio (Dynamics GP, Accesorios, etc.).
+  4. 🛡️ **Gobernanza TI & ETLs**: Auditoría de ejecución de cargas en `staging.ETL_Log_Ejecucion`.
 
 ---
 
 ## 🛠️ Estructura del Repositorio
 
 ```
-Datawarehouse/
+KPI's S&T/
 ├── sql/
-│   ├── 01_ddl_dw_pb.sql                   # Definición de tablas DDL y esquemas DW_PB
-│   ├── 02_etl_staging_schemas.sql          # Capa de Staging y Auditoría (stg.Control_Cargas_ETL)
-│   ├── 03_etl_dimensiones.sql              # Procedimientos MERGE de carga de Dimensiones
-│   ├── 04_etl_fact_tables.sql              # Procedimientos MERGE de carga de Hechos
-│   └── 05_etl_orquestacion_diaria.sql      # SP Maestro dbo.sp_ETL_Ejecutar_Carga_Diaria
+│   ├── 01_ddl_dw_ccr.sql                   # Definición DDL de esquemas, dimensiones y hechos DW_CCR
+│   ├── 02_etl_linked_server_ccr.sql        # Configuración de Linked Server MYSQL_OSTICKET y Staging
+│   ├── 03_etl_dimensiones_ccr.sql          # Procedimientos MERGE de carga de Dimensiones
+│   ├── 04_etl_fact_tables_ccr.sql          # Procedimientos MERGE de carga de Tablas de Hechos
+│   └── 05_etl_orquestacion_diaria_ccr.sql  # Procedimiento Maestro fact_ccr.sp_Ejecutar_ETL_Diario_CCR
+├── etl_osticket_dw.py                      # Extractor e Ingestador Python (PyMySQL -> PyODBC)
+├── export_dw_ccr_json.py                   # Generador del dataset JSON para el Portal Web
+├── analisis_estadistico_kpis_dw_ccr.md     # Informe de Análisis Estadístico e Indicadores
 ├── dashboard_app/
-│   ├── index.html                          # Interfaz HTML5 responsiva
-│   ├── styles.css                          # Hoja de estilos Glassmorphism Modo Oscuro
-│   ├── data.js                             # Datasets pre-agregados DW_PB
-│   └── app.js                              # Lógica JavaScript y motor Chart.js
-├── .agents/                                # Definición de Habilidades y Agentes (.agents/skills)
-└── README.md                               # Documentación oficial del repositorio
+│   ├── index.html                          # Interfaz HTML5 responsiva de KPI's S&T
+│   ├── app.js                              # Lógica de filtros, comparativa YoY/MoM y Chart.js
+│   ├── styles.css                          # Estilos Glassmorphism en modo oscuro y claro
+│   └── data_dw_ccr.js                      # Dataset extraído en tiempo real desde DW_CCR
+└── vercel.json                             # Configuración del proyecto Vercel (kpis-st-dashboard)
 ```
 
 ---
 
-## 🚀 Guía de Ejecución Rápida
+## 🚀 Ejecución de Carga ETL en SQL Server
 
-### 1. Compilación y Ejecución del ETL en SQL Server:
+Para ejecutar la carga diaria directamente desde SSMS:
+
 ```sql
--- Ejecutar el SP Maestro desde SQL Server Management Studio
-EXEC dbo.sp_ETL_Ejecutar_Carga_Diaria @OrigenDB = 'PB', @SystemDB = 'DYNAMICS';
+USE [DW_CCR];
+GO
+
+EXEC fact_ccr.sp_Ejecutar_ETL_Diario_CCR;
+GO
 ```
-
-### 2. Abrir el Dashboard Web Interactivo:
-```powershell
-cd dashboard_app
-python -m http.server 8080
-```
-Visita en tu navegador: `http://localhost:8080`
-
----
-
-## 👤 Autor
-
-* **IAAsuarez26** - *Data Architecture & AI Engineering* - [GitHub Profile](https://github.com/IAAsuarez26)
