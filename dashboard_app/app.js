@@ -2,7 +2,7 @@
    KPI's S&T - PORTAL ANALÍTICO DW_CCR (APPLICATION LOGIC & CHART ENGINE)
    =============================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     // State Management
     let currentTheme = 'dark';
     let isSidebarCollapsed = false;
@@ -52,16 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. NAVIGATION TAB HANDLER
     // ---------------------------------------------------------------------------
     tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetTab = btn.getAttribute('data-tab');
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const navBtn = e.currentTarget || btn;
+            const targetTab = navBtn.getAttribute('data-tab');
             if (!targetTab) return;
 
+            // Remove active class from all buttons and tabs
             tabButtons.forEach(b => b.classList.remove('active'));
             tabContents.forEach(c => c.classList.remove('active'));
 
-            btn.classList.add('active');
+            // Add active class to clicked button and target tab
+            navBtn.classList.add('active');
             const targetContent = document.getElementById(`tab-${targetTab}`);
-            if (targetContent) targetContent.classList.add('active');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
 
             currentTab = targetTab;
             if (tabTitlesMap[currentTab]) {
@@ -77,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. SIDEBAR TOGGLE HANDLER
     // ---------------------------------------------------------------------------
     if (btnSidebarToggle) {
-        btnSidebarToggle.addEventListener('click', () => {
+        btnSidebarToggle.addEventListener('click', (e) => {
+            e.preventDefault();
             isSidebarCollapsed = !isSidebarCollapsed;
             if (appLayout) {
                 if (isSidebarCollapsed) {
@@ -100,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. THEME TOGGLE HANDLER
     // ---------------------------------------------------------------------------
     if (btnThemeToggle) {
-        btnThemeToggle.addEventListener('click', () => {
+        btnThemeToggle.addEventListener('click', (e) => {
+            e.preventDefault();
             if (currentTheme === 'dark') {
                 currentTheme = 'light';
                 document.body.classList.remove('dark-theme');
@@ -114,7 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (window.lucide) window.lucide.createIcons();
             
-            Chart.defaults.color = currentTheme === 'dark' ? '#9CA3AF' : '#475569';
+            if (window.Chart) {
+                Chart.defaults.color = currentTheme === 'dark' ? '#9CA3AF' : '#475569';
+            }
             updateDWCCRDashboard();
         });
     }
@@ -141,7 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     if (btnRefresh) {
-        btnRefresh.addEventListener('click', () => {
+        btnRefresh.addEventListener('click', (e) => {
+            e.preventDefault();
             updateDWCCRDashboard();
         });
     }
@@ -157,8 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Chart Defaults
-    Chart.defaults.color = '#9CA3AF';
-    Chart.defaults.font.family = "'Inter', sans-serif";
+    if (window.Chart) {
+        Chart.defaults.color = '#9CA3AF';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+    }
 
     // ---------------------------------------------------------------------------
     // 6. MAIN ENGINE: UPDATE DW_CCR DASHBOARD (METRICS, CHARTS & TABLES)
@@ -272,10 +285,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Render Charts for Tab 1
-        renderCCRTrendChart(filteredTrend, compTrend);
-        renderCCRTopicsChart(DW_CCR_LIVE_DATA.topics || []);
-        renderCCRAgentsChart(DW_CCR_LIVE_DATA.agents || []);
-        renderCCRStatusChart();
+        if (window.Chart) {
+            renderCCRTrendChart(filteredTrend, compTrend);
+            renderCCRTopicsChart(DW_CCR_LIVE_DATA.topics || []);
+            renderCCRAgentsChart(DW_CCR_LIVE_DATA.agents || []);
+            renderCCRStatusChart();
+        }
 
         // Render Tables for Tab 2, 3, 4
         renderCCRTopicsTable(DW_CCR_LIVE_DATA.topics || [], totalTickets);
@@ -291,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCCRTrendChart(filteredTrend, compTrend) {
         destroyChart('ccr-trend');
         const ctx = document.getElementById('chart-ccr-trend');
-        if (!ctx) return;
+        if (!ctx || !window.Chart) return;
 
         let labels = filteredTrend.map(i => `${i.monthName.substring(0,3)} ${i.year}`);
         let datasets = [{
@@ -326,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCCRTopicsChart(topicsData) {
         destroyChart('ccr-topics');
         const ctx = document.getElementById('chart-ccr-topics');
-        if (!ctx) return;
+        if (!ctx || !window.Chart) return;
 
         let top5 = topicsData.slice(0, 5);
         chartInstances['ccr-topics'] = new Chart(ctx, {
@@ -345,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCCRAgentsChart(agentsData) {
         destroyChart('ccr-agents');
         const ctx = document.getElementById('chart-ccr-agents');
-        if (!ctx) return;
+        if (!ctx || !window.Chart) return;
 
         let topAgents = agentsData.slice(0, 7);
         chartInstances['ccr-agents'] = new Chart(ctx, {
@@ -365,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCCRStatusChart() {
         destroyChart('ccr-status');
         const ctx = document.getElementById('chart-ccr-status');
-        if (!ctx) return;
+        if (!ctx || !window.Chart) return;
 
         chartInstances['ccr-status'] = new Chart(ctx, {
             type: 'bar',
@@ -382,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---------------------------------------------------------------------------
-    // 8. TABLE RENDERING FUNCTIONS (Targeting both full and short table IDs)
+    // 8. TABLE RENDERING FUNCTIONS
     // ---------------------------------------------------------------------------
     function renderCCRTopicsTable(topicsData, totalTickets) {
         const tbody = document.querySelector('#table-ccr-topics-full tbody') || document.querySelector('#table-ccr-topics tbody');
@@ -445,4 +460,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. INITIAL LOAD
     // ---------------------------------------------------------------------------
     updateDWCCRDashboard();
-});
+}
+
+// ---------------------------------------------------------------------------
+// GUARANTEED INITIALIZATION HANDLER (RUNS REGARDLESS OF LOAD TIMING)
+// ---------------------------------------------------------------------------
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
