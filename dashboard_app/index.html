@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2.0">
 </head>
 <body class="dark-theme">
     <div class="app-layout" id="app-layout">
@@ -31,24 +31,24 @@
             <nav class="nav-menu">
                 <div class="nav-section-title">MÓDULOS DE ANÁLISIS S&T</div>
                 
-                <button class="nav-btn active" data-tab="ccr-soporte" title="Atención & KPIs DW_CCR">
+                <button class="nav-btn active" data-tab="ccr-soporte" onclick="switchTab('ccr-soporte')" title="Atención & KPIs DW_CCR">
                     <i data-lucide="headphones"></i>
                     <span>Atención & KPIs DW_CCR</span>
                 </button>
 
-                <button class="nav-btn" data-tab="ccr-agentes" title="Productividad por Agente">
+                <button class="nav-btn" data-tab="ccr-agentes" onclick="switchTab('ccr-agentes')" title="Productividad por Agente">
                     <i data-lucide="users"></i>
                     <span>Productividad por Agente</span>
                 </button>
 
-                <button class="nav-btn" data-tab="ccr-categorias" title="Demanda por Categoría">
+                <button class="nav-btn" data-tab="ccr-categorias" onclick="switchTab('ccr-categorias')" title="Demanda por Categoría">
                     <i data-lucide="layers"></i>
                     <span>Demanda por Categoría</span>
                 </button>
 
                 <div class="nav-section-title">GOBERNANZA</div>
                 
-                <button class="nav-btn" data-tab="ccr-gobernanza" title="Gobernanza TI & ETLs">
+                <button class="nav-btn" data-tab="ccr-gobernanza" onclick="switchTab('ccr-gobernanza')" title="Gobernanza TI & ETLs">
                     <i data-lucide="server"></i>
                     <span>Gobernanza TI & ETLs</span>
                 </button>
@@ -70,7 +70,7 @@
             <!-- Global Top Bar Header -->
             <header class="top-bar">
                 <div class="left-header-group">
-                    <button id="btn-sidebar-toggle" class="icon-btn" title="Ocultar/Mostrar Menú">
+                    <button id="btn-sidebar-toggle" onclick="toggleSidebar()" class="icon-btn" title="Ocultar/Mostrar Menú">
                         <i data-lucide="panel-left-close" id="sidebar-toggle-icon"></i>
                     </button>
 
@@ -82,7 +82,7 @@
 
                 <div class="header-controls">
                     <!-- Theme Mode Toggle (Oscuro / Claro) -->
-                    <button id="btn-theme-toggle" class="icon-btn" title="Cambiar Tema (Oscuro/Claro)">
+                    <button id="btn-theme-toggle" onclick="toggleTheme()" class="icon-btn" title="Cambiar Tema (Oscuro/Claro)">
                         <i data-lucide="sun" id="theme-icon"></i>
                     </button>
 
@@ -135,7 +135,7 @@
                     </div>
 
                     <!-- Refresh Action -->
-                    <button id="btn-refresh" class="icon-btn" title="Refrescar Datos desde DW_CCR">
+                    <button id="btn-refresh" onclick="refreshData()" class="icon-btn" title="Refrescar Datos desde DW_CCR">
                         <i data-lucide="rotate-cw"></i>
                     </button>
                 </div>
@@ -349,8 +349,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="data_dw_ccr.js"></script>
-    <script src="app.js"></script>
+    <script src="data_dw_ccr.js?v=2.0"></script>
+    <script src="app.js?v=2.0"></script>
     <script>
         lucide.createIcons();
     </script>
