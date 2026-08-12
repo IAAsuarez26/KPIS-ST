@@ -128,6 +128,7 @@ def extraer_y_cargar_staging(conn_mysql, conn_sqlserver):
                     S.onvacation AS En_Vacaciones,
                     S.created AS Fecha_Creacion
                 FROM osticket.ost_staff S
+                WHERE S.isactive = 1
             """,
             "insert_sql": "INSERT INTO staging.stg_ost_staff VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         },

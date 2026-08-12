@@ -1196,45 +1196,9 @@ const DW_CCR_LIVE_DATA = {
       "vencidos": 3
     },
     {
-      "name": "Esteban Monzón",
-      "count": 248,
-      "mttr": 60.48,
-      "vencidos": 0
-    },
-    {
       "name": "Albin Suarez",
       "count": 241,
       "mttr": 5089.35,
-      "vencidos": 0
-    },
-    {
-      "name": "Angie Peña",
-      "count": 183,
-      "mttr": 194.95,
-      "vencidos": 0
-    },
-    {
-      "name": "Ivan Paradas",
-      "count": 58,
-      "mttr": 98.23,
-      "vencidos": 0
-    },
-    {
-      "name": "René Fermín",
-      "count": 47,
-      "mttr": 6.68,
-      "vencidos": 0
-    },
-    {
-      "name": "Alcimara Villegas",
-      "count": 36,
-      "mttr": 71.66,
-      "vencidos": 0
-    },
-    {
-      "name": "Wilfredo Quintero",
-      "count": 30,
-      "mttr": 123.14,
       "vencidos": 0
     },
     {
@@ -1244,25 +1208,22 @@ const DW_CCR_LIVE_DATA = {
       "vencidos": 20
     },
     {
-      "name": "Roxely Rivero",
-      "count": 21,
-      "mttr": 17.52,
-      "vencidos": 0
-    },
-    {
       "name": "Zayleth Vegas",
       "count": 6,
       "mttr": 43.68,
       "vencidos": 0
-    },
-    {
-      "name": "Génesis Matute",
-      "count": 4,
-      "mttr": 22.2,
-      "vencidos": 0
     }
   ],
   "auditLog": [
+    {
+      "logId": 9,
+      "proceso": "ETL_DIARIO_CCR",
+      "paso": "INICIO PROCESO MAESTRO",
+      "inicio": "2026-08-12 10:53:03",
+      "fin": "",
+      "estado": "EN PROCESO",
+      "registros": 0
+    },
     {
       "logId": 8,
       "proceso": "ETL_DIARIO_CCR",

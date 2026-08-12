@@ -309,6 +309,7 @@ BEGIN
             FROM OPENQUERY(MYSQL_OSTICKET, ''
                 SELECT staff_id, dept_id, role_id, username, firstname, lastname, email, phone, phone_ext, mobile, isactive, isadmin, onvacation, created
                 FROM osticket.ost_staff
+                WHERE isactive = 1
             '') S;
 
             -- 4. Department

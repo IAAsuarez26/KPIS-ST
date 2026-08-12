@@ -266,6 +266,7 @@ BEGIN
             En_Vacaciones,
             Fecha_Creacion
         FROM staging.stg_ost_staff
+        WHERE Es_Activo = 1
     ) AS Source
     ON (Target.ID_Agente_Origen = Source.ID_Agente_Origen)
     WHEN MATCHED THEN

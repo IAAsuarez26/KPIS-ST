@@ -86,6 +86,7 @@ def export_dw_data():
             SUM(CASE WHEN F.Es_Vencido = 1 THEN 1 ELSE 0 END) AS vencidos
         FROM fact_ccr.Fact_Atencion_Tickets F
         INNER JOIN dim.Dim_Agente_Staff A ON F.Agente_SK = A.Agente_SK
+        WHERE A.Es_Activo = 1
         GROUP BY A.Nombre_Completo
         ORDER BY totalTickets DESC
     """)
