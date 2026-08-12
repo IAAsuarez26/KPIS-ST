@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="styles.css?v=2.0">
+    <link rel="stylesheet" href="styles.css?v=3.0">
 </head>
 <body class="dark-theme">
     <div class="app-layout" id="app-layout">
@@ -89,7 +89,7 @@
                     <!-- Filtro por Año -->
                     <div class="filter-group">
                         <i data-lucide="calendar" class="filter-icon"></i>
-                        <select id="filter-year" class="filter-select">
+                        <select id="filter-year" onchange="updateDWCCRDashboard()" class="filter-select">
                             <option value="all" selected>Todos los Años</option>
                             <option value="2026">Año 2026</option>
                             <option value="2025">Año 2025</option>
@@ -107,7 +107,7 @@
                     <!-- Filtro por Mes -->
                     <div class="filter-group">
                         <i data-lucide="calendar-days" class="filter-icon"></i>
-                        <select id="filter-month" class="filter-select">
+                        <select id="filter-month" onchange="updateDWCCRDashboard()" class="filter-select">
                             <option value="all" selected>Todos los Meses</option>
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
@@ -127,7 +127,7 @@
                     <!-- Modo de Comparación -->
                     <div class="filter-group highlight-filter">
                         <i data-lucide="git-compare" class="filter-icon"></i>
-                        <select id="filter-compare" class="filter-select compare-select">
+                        <select id="filter-compare" onchange="updateDWCCRDashboard()" class="filter-select compare-select">
                             <option value="none" selected>Sin Comparación</option>
                             <option value="yoy">Comparar YoY (vs Año Ant.)</option>
                             <option value="mom">Comparar MoM (vs Mes Ant.)</option>
@@ -349,8 +349,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="data_dw_ccr.js?v=2.0"></script>
-    <script src="app.js?v=2.0"></script>
+    <script src="data_dw_ccr.js?v=3.0"></script>
+    <script src="app.js?v=3.0"></script>
     <script>
         lucide.createIcons();
     </script>

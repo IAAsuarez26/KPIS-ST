@@ -120,25 +120,33 @@ window.refreshData = function() {
 function updateDWCCRDashboard() {
     if (typeof DW_CCR_LIVE_DATA === 'undefined') return;
 
+    const filterYearSelect = document.getElementById('filter-year');
+    const filterMonthSelect = document.getElementById('filter-month');
+    const filterCompareSelect = document.getElementById('filter-compare');
+
+    if (filterYearSelect) ccrYear = filterYearSelect.value;
+    if (filterMonthSelect) ccrMonth = filterMonthSelect.value;
+    if (filterCompareSelect) ccrCompare = filterCompareSelect.value;
+
+    const monthNamesSpanish = ['', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     const allTrend = DW_CCR_LIVE_DATA.monthlyTrend || [];
 
     // Filter Trend Data
+    let isFiltered = (ccrYear !== 'all') || (ccrMonth !== 'all');
     let filteredTrend = allTrend.filter(item => {
         let matchYear = (ccrYear === 'all') || (item.year == ccrYear);
         let matchMonth = (ccrMonth === 'all') || (item.monthNum == ccrMonth);
         return matchYear && matchMonth;
     });
 
-    if (filteredTrend.length === 0) filteredTrend = allTrend;
-
     // Calculate KPI values
-    let totalTickets = filteredTrend.reduce((sum, i) => sum + i.totalTickets, 0);
-    let ticketsCerrados = filteredTrend.reduce((sum, i) => sum + i.ticketsCerrados, 0);
-    let ticketsAbiertos = (ccrYear === 'all' && ccrMonth === 'all') ? DW_CCR_LIVE_DATA.summaryAll.ticketsAbiertos : (totalTickets - ticketsCerrados);
+    let totalTickets = isFiltered ? filteredTrend.reduce((sum, i) => sum + i.totalTickets, 0) : DW_CCR_LIVE_DATA.summaryAll.totalTickets;
+    let ticketsCerrados = isFiltered ? filteredTrend.reduce((sum, i) => sum + i.ticketsCerrados, 0) : DW_CCR_LIVE_DATA.summaryAll.ticketsCerrados;
+    let ticketsAbiertos = (!isFiltered) ? DW_CCR_LIVE_DATA.summaryAll.ticketsAbiertos : (totalTickets - ticketsCerrados);
     if (ticketsAbiertos < 0) ticketsAbiertos = 0;
     
-    let avgSLA = filteredTrend.length > 0 ? (filteredTrend.reduce((sum, i) => sum + i.pctSLA, 0) / filteredTrend.length) : DW_CCR_LIVE_DATA.summaryAll.pctSLA;
-    let avgMTTR = filteredTrend.length > 0 ? (filteredTrend.reduce((sum, i) => sum + i.mttrHoras, 0) / filteredTrend.length) : DW_CCR_LIVE_DATA.summaryAll.mttrHoras;
+    let avgSLA = (isFiltered && filteredTrend.length > 0) ? (filteredTrend.reduce((sum, i) => sum + i.pctSLA, 0) / filteredTrend.length) : DW_CCR_LIVE_DATA.summaryAll.pctSLA;
+    let avgMTTR = (isFiltered && filteredTrend.length > 0) ? (filteredTrend.reduce((sum, i) => sum + i.mttrHoras, 0) / filteredTrend.length) : DW_CCR_LIVE_DATA.summaryAll.mttrHoras;
     let closureRate = totalTickets > 0 ? (ticketsCerrados / totalTickets) * 100 : 99.2;
 
     // Comparison Calculations (YoY / MoM)
@@ -158,7 +166,9 @@ function updateDWCCRDashboard() {
         compLabelText = `Comparando Mes ${refMonth} vs Mes ${prevMonth} (MoM)`;
         compTrend = allTrend.filter(item => item.monthNum == prevMonth && (ccrYear === 'all' || item.year == refYear));
     } else {
-        compLabelText = `Filtro Activo: ${ccrYear === 'all' ? 'Histórico Completo (2017 - 2026)' : 'Año ' + ccrYear} ${ccrMonth === 'all' ? '' : '/ Mes ' + ccrMonth}`;
+        let monthStr = (ccrMonth !== 'all' && monthNamesSpanish[parseInt(ccrMonth)]) ? monthNamesSpanish[parseInt(ccrMonth)] : '';
+        let yearStr = ccrYear === 'all' ? 'Histórico Completo (2017 - 2026)' : 'Año ' + ccrYear;
+        compLabelText = `Filtro Activo: ${yearStr} ${monthStr ? '/ ' + monthStr : ''}`;
     }
 
     let compTickets = compTrend.reduce((sum, i) => sum + i.totalTickets, 0);
